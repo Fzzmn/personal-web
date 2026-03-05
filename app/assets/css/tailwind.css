@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Global Styles — Terminal Aesthetic
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3f55 #0a0f1a;
+}
+
+html::-webkit-scrollbar {
+  width: 5px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #0a0f1a;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #2a3f55;
+  border-radius: 10px;
+}
+
+body {
+  background-color: #0a0f1a;
+  color: #c8d6e5;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+::selection {
+  background: rgba(77, 201, 176, 0.25);
+  color: #fff;
+}
+
+/* ============================================
+   Link Underline Style
+   ============================================ */
+a.term-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+
+a.term-link:hover {
+  color: #4dc9b0;
+}
+
+/* ============================================
+   Typewriter Cursor Blink
+   Shared across HeroSection, AboutSection, etc.
+   ============================================ */
+.cursor-blink {
+  opacity: 0;
+  animation:
+    cursorAppear 0.3s ease forwards 700ms,
+    cursorBlink 1s step-end infinite 1000ms;
+}
+
+.cursor-blink-2 {
+  opacity: 0;
+  animation:
+    cursorAppear 0.3s ease forwards 750ms,
+    cursorBlink 1s step-end infinite 1050ms;
+}
+
+@keyframes cursorAppear {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cursorBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
