@@ -3,8 +3,8 @@
     FooterSection — Minimal footer with location, live clock, and version
     Matches dafkur.com style exactly
   -->
-  <footer class="py-6 px-6 lg:px-0">
-    <div class="max-w-2xl mx-auto w-full">
+  <footer class="py-6 px-8 lg:px-12">
+    <div class="w-full">
       <div class="flex items-center justify-between font-mono text-xs text-term-muted">
         <div>
           <p>Tangerang, Banten - Indonesia</p>

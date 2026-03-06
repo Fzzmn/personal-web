@@ -4,14 +4,14 @@
     Left: Social media cards grid (2x3)
     Right: Contact form + email
   -->
-  <section id="contact" class="py-24 px-6 lg:px-0">
+  <section id="contact" class="pt-28 pb-20 px-6 lg:px-0">
     <div class="max-w-5xl mx-auto w-full">
       <!-- Two Column Layout -->
-      <div class="flex flex-col lg:flex-row gap-8">
+      <div class="flex flex-col lg:flex-row gap-6">
 
         <!-- Left: Social Cards Grid -->
         <div class="flex-1">
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-3">
             <a
               v-for="(social, index) in socialLinks"
               :key="social.name"
@@ -59,10 +59,10 @@
           class="flex-1"
         >
           <!-- Form Card -->
-          <div class="bg-base-card/30 border border-base-border rounded-2xl p-6 mb-6">
-            <h3 class="font-mono text-sm text-term-text mb-5">Drop me a message:</h3>
+          <div class="form-card rounded-2xl p-5 mb-4">
+            <h3 class="font-mono text-sm text-term-text mb-4">Drop me a message:</h3>
 
-            <form class="space-y-3" @submit.prevent="handleSubmit">
+            <form class="space-y-2.5" @submit.prevent="handleSubmit">
               <input
                 id="c-name"
                 v-model="form.name"
@@ -176,22 +176,31 @@ const socialLinks = [
 </script>
 
 <style scoped>
-/* Social Media Card */
+/* Social Media Card — Glossy glassmorphism style */
 .social-card {
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 16px;
-  min-height: 130px;
+  min-height: 110px;
   border-radius: 16px;
-  border: 1px solid #2a3f55;
-  background-color: rgba(30, 42, 58, 0.3);
-  transition: all 0.3s ease;
+  /* Transparent frosted glass — same as navbar */
+  background: rgba(10, 15, 26, 0.5);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(77, 201, 176, 0.15);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .social-card:hover {
-  border-color: #4dc9b0;
-  background-color: rgba(30, 42, 58, 0.6);
+  border-color: rgba(77, 201, 176, 0.5);
+  background: rgba(10, 15, 26, 0.65);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transform: translateY(-2px);
 }
 
@@ -233,5 +242,16 @@ const socialLinks = [
 
 .form-input:focus {
   border-color: rgba(77, 201, 176, 0.5);
+}
+
+/* Form Card — Transparent frosted glass like navbar */
+.form-card {
+  background: rgba(10, 15, 26, 0.5);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(77, 201, 176, 0.15);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 </style>
