@@ -185,19 +185,26 @@
             </div>
           </div>
 
-          <!-- Tech Stacks -->
-          <div class="mb-8">
-            <p class="text-term-label font-mono text-xs mb-3">
+          <!-- Tech Stacks (Icon Grid Style) -->
+          <div class="mb-12">
+            <p class="text-term-label font-mono text-xs mb-6">
               <LetterReveal text="Tech Stacks" :delay="START" :stagger="25" />
             </p>
-            <div class="flex flex-wrap gap-2">
-              <div
-                v-for="tech in techStacks"
+            
+            <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 gap-y-8 gap-x-4">
+              <div 
+                v-for="tech in techStacks" 
                 :key="tech.name"
-                class="w-9 h-9 rounded-lg bg-base-card border border-base-border flex items-center justify-center"
+                class="flex items-center justify-center p-2 group transition-all duration-300"
                 :title="tech.name"
               >
-                <span class="text-lg">{{ tech.icon }}</span>
+                <svg 
+                  viewBox="0 0 24 24" 
+                  class="w-8 h-8 lg:w-9 lg:h-9 fill-term-dot-green/80 group-hover:fill-term-dot-green transition-colors duration-300"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path :d="tech.path" />
+                </svg>
               </div>
             </div>
           </div>
@@ -321,21 +328,22 @@ const getContributionClass = (level: string): string => {
 }
 
 const techStacks = [
-  { name: 'Vue.js', icon: '🟢' },
-  { name: 'Nuxt', icon: '💚' },
-  { name: 'React', icon: '⚛️' },
-  { name: 'Next.js', icon: '▲' },
-  { name: 'JavaScript', icon: '🟨' },
-  { name: 'TypeScript', icon: '🔷' },
-  { name: 'Django', icon: '🐍' },
-  { name: 'Laravel', icon: '🔴' },
-  { name: 'Tailwind CSS', icon: '🌊' },
-  { name: 'Bootstrap', icon: '🅱️' },
-  { name: 'Node.js', icon: '💻' },
-  { name: 'Svelte', icon: '🔥' },
-  { name: 'Git', icon: '🔀' },
-  { name: 'Flutter', icon: '🦋' },
+  // Row 1
+  { name: 'React', path: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zM12 7a5 5 0 1 0 5 5 5 5 0 0 0-5-5z' },
+  { name: 'Vue', path: 'M2 3l10 18L22 3h-4l-6 10.5L6 3H2z' },
+  { name: 'Nuxt', path: 'M12 2L2 20h20L12 2zm0 5.4L18.4 18H5.6L12 7.4z' },
+  { name: 'Node.js', path: 'M12 2L3 7v10l9 5 9-5V7l-9-5zm7 14.2L12 19.6l-7-3.4V7.8L12 4.4l7 3.4v8.4z' },
+  { name: 'Django', path: 'M22 2H2v20h20V2zM4 20h3.5v-3.5H4V20zm0-5.5h3.5v-3.5H4v3.5zm0-5.5h3.5V5.5H4v3.5zm5.5 11H13v-3.5H9.5V20zm0-5.5H13v-3.5H9.5v3.5zm0-5.5H13V5.5H9.5v3.5zM15 20h3.5v-3.5H15V20zm0-5.5h3.5v-3.5H15v3.5zm0-5.5h3.5V5.5H15v3.5z' },
+  { name: 'Laravel', path: 'M12 21.35l-8-4.5V8.15l8-4.5 8 4.5v8.7l-8 4.5zM5.33 8.9v7.2L12 19.86l6.67-3.76V8.9L12 5.14 5.33 8.9z' },
+  // Row 2
+  { name: 'Tailwind', path: 'M12 6.5c-2.5 0-4 1.25-4.5 3.75 1.125-1.5 2.5-2.125 4.125-1.875 1 0.15 1.625 0.775 2.125 1.275C14.5 10.4 15.25 11 16.5 11c2.5 0 4-1.25 4.5-3.75-1.125 1.5-2.5 2.125-4.125 1.875-1-0.15-1.625-0.775-2.125-1.275C14.125 7.1 13.375 6.5 12 6.5zM8.25 11c-2.5 0-4 1.25-4.5 3.75 1.125-1.5 2.5-2.125 4.125-1.875 1 0.15 1.625 0.775 2.125 1.275C10.75 14.9 11.5 15.5 12.75 15.5c2.5 0 4-1.25 4.5-3.75-1.125 1.5-2.5 2.125-4.125 1.875-1-0.15-1.625-0.775-2.125-1.275C12.375 11.6 11.625 11 10.25 11z' },
+  { name: 'Bootstrap', path: 'M4 4h12l4 4v12H4V4zm4 4v8h4.5c1.4 0 2.5-1.1 2.5-2.5S13.9 11 12.5 11H12V8H8zm2 2h2.5c.3 0 .5.2.5.5s-.2.5-.5.5H10v-1zm0 3h2.5c.3 0 .5.2.5.5s-.2.5-.5.5H10v-1z' },
+  { name: 'TypeScript', path: 'M2 2h20v20H2V2zm16.5 16l-3-4h3l-3 4zm-11-8v2h3v2h-3v2h5v-6h-5z' },
+  { name: 'Svelte', path: 'M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4 11h-3v3l-2-2-2 2v-3h-3l2-2-2-2h3V8l2 2 2-2v3h3l-2 2 2 2z' },
+  { name: 'Redux', path: 'M12 2L2 22h20L12 2zm0 4.2l7.2 12.8H4.8L12 6.2z' },
+  { name: 'Flutter', path: 'M14.33 6L7 13.33 14.33 20.67 21.67 13.33 14.33 6zM7 13.33l7.33 7.34L2.33 20.67 7 13.33z' }
 ]
+
 </script>
 
 <style scoped>
