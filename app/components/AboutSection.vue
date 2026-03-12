@@ -59,6 +59,12 @@
                 <LetterReveal text="GitHub" :delay="START" :stagger="30" />
               </p>
               <div class="bg-base-card rounded-lg p-4 border border-base-border overflow-x-auto">
+                <!-- Month Labels -->
+                <div class="flex gap-[3px] mb-2 pl-1">
+                  <div v-for="month in monthLabels" :key="month.key" :style="{ width: month.width + 'px' }" class="font-mono text-[10px] text-term-muted">
+                    {{ month.name }}
+                  </div>
+                </div>
                 <!-- GitHub Contribution Grid -->
                 <div class="contribution-grid">
                   <div
@@ -70,8 +76,8 @@
                       v-for="(day, dIndex) in week"
                       :key="'gh-d-' + dIndex"
                       class="contribution-cell"
-                      :class="getContributionClass(day)"
-                      :title="`${day} contributions`"
+                      :class="getContributionClass(day.level)"
+                      :title="`${day.count} contributions on ${day.date}`"
                     />
                   </div>
                 </div>
@@ -79,11 +85,11 @@
                   <span class="font-mono text-xs text-term-muted">{{ totalGithubContribs }} contributions in the last year</span>
                   <div class="flex items-center gap-1">
                     <span class="font-mono text-xs text-term-muted">Less</span>
-                    <div class="contribution-cell level-0" />
-                    <div class="contribution-cell level-1" />
-                    <div class="contribution-cell level-2" />
-                    <div class="contribution-cell level-3" />
-                    <div class="contribution-cell level-4" />
+                    <div class="contribution-cell level-NONE" />
+                    <div class="contribution-cell level-FIRST_QUARTILE" />
+                    <div class="contribution-cell level-SECOND_QUARTILE" />
+                    <div class="contribution-cell level-THIRD_QUARTILE" />
+                    <div class="contribution-cell level-FOURTH_QUARTILE" />
                     <span class="font-mono text-xs text-term-muted">More</span>
                   </div>
                 </div>
@@ -154,7 +160,7 @@
                 <LetterReveal text="Currently working as" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="Software Engineer" :delay="START" :stagger="20" />
+                <LetterReveal text="IT Development - Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
               </p>
             </div>
 
@@ -164,7 +170,7 @@
                 <LetterReveal text="Employed at" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="Agensi Pekerjaan Ajobthing Sdn Bhd" :delay="START" :stagger="12" />
+                <LetterReveal text="AirNav Indonesia" :delay="START" :stagger="15" />
               </p>
             </div>
 
@@ -174,7 +180,7 @@
                 <LetterReveal text="Based in" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="Tangerang, Banten, Indonesia" :delay="START" :stagger="15" />
+                <LetterReveal text="Jakarta, Indonesia" :delay="START" :stagger="15" />
               </p>
             </div>
           </div>
@@ -236,40 +242,82 @@ function cumDelay(lines: string[], lineIndex: number, baseDelay: number, stagger
 }
 
 // Generate random contribution data
-const generateContributions = (weeks: number, intensity: number = 1) => {
-  const data: number[][] = []
+const generatePlaceholder = (weeks: number) => {
+  const data: any[][] = []
   for (let w = 0; w < weeks; w++) {
-    const week: number[] = []
+    const week: any[] = []
     for (let d = 0; d < 7; d++) {
-      const rand = Math.random()
-      if (rand < 0.3) week.push(0)
-      else if (rand < 0.5) week.push(Math.ceil(Math.random() * 3 * intensity))
-      else if (rand < 0.75) week.push(Math.ceil(Math.random() * 6 * intensity))
-      else if (rand < 0.9) week.push(Math.ceil(Math.random() * 10 * intensity))
-      else week.push(Math.ceil(Math.random() * 20 * intensity))
+      week.push({ count: 0, level: 'NONE', date: '' })
     }
     data.push(week)
   }
   return data
 }
 
-const githubContributions = generateContributions(52)
-const gitlabContributions = generateContributions(52, 1.5)
+const githubContributions = ref<any[][]>(generatePlaceholder(52))
+const gitlabContributions = ref<any[][]>(generatePlaceholder(52))
+const monthLabels = ref<{ name: string; key: string; width: number }[]>([])
+
+onMounted(async () => {
+  // Fetch GitHub Contributions
+  try {
+    const res = await fetch('https://github-contributions-api.deno.dev/Fzzmn.json?flat=true')
+    const data = await res.json()
+    if (data && data.contributions) {
+      const weeks: any[][] = []
+      const months: { name: string; key: string; index: number }[] = []
+      
+      const raw = data.contributions
+      for (let i = 0; i < raw.length; i += 7) {
+        const chunk = raw.slice(i, i + 7)
+        const weekData = chunk.map((c: any) => ({
+          count: c.contributionCount,
+          level: c.contributionLevel,
+          date: c.date
+        }))
+        weeks.push(weekData)
+        
+        // Month Label Logic
+        const firstDay = weekData[0]
+        if (firstDay && firstDay.date) {
+          const date = new Date(firstDay.date)
+          const monthName = date.toLocaleString('default', { month: 'short' })
+          const lastMonth = months[months.length - 1]
+          if (months.length === 0 || (lastMonth && lastMonth.name !== monthName)) {
+            months.push({ name: monthName, key: firstDay.date, index: weeks.length - 1 })
+          }
+        }
+      }
+      
+      githubContributions.value = weeks.slice(-52)
+      
+      // Calculate widths for month labels (9px cell + 2px gap = 11px total per week)
+      monthLabels.value = months.slice(-12).map((m, i, arr) => {
+        const currentMonth = arr[i]
+        const nextMonth = arr[i + 1]
+        const nextIndex = nextMonth ? nextMonth.index : weeks.length
+        return {
+          name: currentMonth ? currentMonth.name : '',
+          key: currentMonth ? currentMonth.key : String(i),
+          width: (nextIndex - (currentMonth ? currentMonth.index : 0)) * 11
+        }
+      })
+    }
+  } catch (e) {
+    console.error('Failed to fetch github contributions', e)
+  }
+})
 
 const totalGithubContribs = computed(() =>
-  githubContributions.reduce((sum, week) => sum + week.reduce((s, d) => s + d, 0), 0)
+  githubContributions.value.reduce((sum, week) => sum + week.reduce((s, d) => s + (d.count || 0), 0), 0)
 )
 
 const totalGitlabContribs = computed(() =>
-  gitlabContributions.reduce((sum, week) => sum + week.reduce((s, d) => s + d, 0), 0)
+  gitlabContributions.value.reduce((sum, week) => sum + week.reduce((s, d) => s + (d.count || 0), 0), 0)
 )
 
-const getContributionClass = (count: number): string => {
-  if (count === 0) return 'level-0'
-  if (count <= 3) return 'level-1'
-  if (count <= 6) return 'level-2'
-  if (count <= 10) return 'level-3'
-  return 'level-4'
+const getContributionClass = (level: string): string => {
+  return `level-${level || 'NONE'}`
 }
 
 const techStacks = [
@@ -294,38 +342,38 @@ const techStacks = [
 /* Contribution Grid Styles */
 .contribution-grid {
   display: flex;
-  gap: 3px;
+  gap: 2px;
 }
 
 .contribution-column {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .contribution-cell {
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
   border-radius: 2px;
 }
 
-.level-0 {
-  background-color: #1e2a3a;
+.level-NONE {
+  background-color: #161b22;
 }
 
-.level-1 {
-  background-color: #2a4a5a;
+.level-FIRST_QUARTILE {
+  background-color: #0e4429;
 }
 
-.level-2 {
-  background-color: #3a6a7a;
+.level-SECOND_QUARTILE {
+  background-color: #006d32;
 }
 
-.level-3 {
-  background-color: #4a8a9a;
+.level-THIRD_QUARTILE {
+  background-color: #26a641;
 }
 
-.level-4 {
-  background-color: #4dc9b0;
+.level-FOURTH_QUARTILE {
+  background-color: #ebedf0;
 }
 </style>
