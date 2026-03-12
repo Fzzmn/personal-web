@@ -72,7 +72,7 @@ const menuItems = [
   { path: '/about', label: 'About', icon: 'person' },
   { path: '/experience', label: 'Experience', icon: 'link' },
   { path: '/projects', label: 'Projects', icon: 'code' },
-  { path: '/blogs', label: 'Blogs', icon: 'book' },
+  { path: '/certifications', label: 'Certifications', icon: 'book' },
   { path: '/contact', label: 'Contact', icon: 'chat' },
 ]
 

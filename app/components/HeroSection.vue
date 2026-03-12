@@ -17,7 +17,7 @@
     <div class="max-w-2xl mx-auto w-full pt-28">
       <!-- Greeting Title -->
       <h1 class="text-2xl lg:text-3xl font-mono font-bold text-term-text mb-12">
-        <LetterReveal text="Hello Every" :delay="START" :stagger="45" />
+        <span class="typewriter-text">{{ displayedText }}</span>
         <span class="cursor-blink text-term-muted">_</span>
       </h1>
 
@@ -59,35 +59,6 @@
         </div>
       </div>
 
-      <!-- Blogs / Articles -->
-      <div class="flex gap-8">
-        <span class="text-term-label font-mono text-sm shrink-0 pt-0.5">
-          <LetterReveal text="Blogs." :delay="START" :stagger="30" />
-        </span>
-        <div class="font-mono text-sm space-y-2">
-          <div v-for="(blog, index) in blogs" :key="blog.title" class="flex gap-3">
-            <span class="text-term-muted">
-              <LetterReveal
-                :text="String(index + 1).padStart(2, '0') + '.'"
-                :delay="blogItemDelay(index)"
-                :stagger="25"
-              />
-            </span>
-            <a
-              :href="blog.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="term-link text-term-text hover:text-term-label"
-            >
-              <LetterReveal
-                :text="blog.title"
-                :delay="blogItemDelay(index)"
-                :stagger="8"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -96,22 +67,67 @@
 const START = 200   // everything starts at the same time
 const STAGGER = 10  // ms between chars for paragraph text
 
+// ── Typewriter cycle for greeting ──
+const greetingPhrases = ['hello world!', 'hello everyone!', 'hello guys!']
+const displayedText = ref('')
+let typewriterTimer: ReturnType<typeof setTimeout> | null = null
+
+onMounted(() => {
+  let phraseIndex = 0
+  let charIndex = 0
+  let isDeleting = false
+  const TYPING_SPEED = 50    // ms per character when typing
+  const DELETING_SPEED = 30   // ms per character when deleting
+  const PAUSE_AFTER_TYPE = 1200  // ms to wait after typing a full phrase
+  const PAUSE_AFTER_DELETE = 300 // ms to wait after deleting before next phrase
+
+  function tick() {
+    const currentPhrase = greetingPhrases[phraseIndex]!
+
+    if (!isDeleting) {
+      // Typing
+      charIndex++
+      displayedText.value = currentPhrase.slice(0, charIndex)
+
+      if (charIndex === currentPhrase.length) {
+        // Full phrase typed — pause, then start deleting
+        isDeleting = true
+        typewriterTimer = setTimeout(tick, PAUSE_AFTER_TYPE)
+      } else {
+        typewriterTimer = setTimeout(tick, TYPING_SPEED)
+      }
+    } else {
+      // Deleting
+      charIndex--
+      displayedText.value = currentPhrase.slice(0, charIndex)
+
+      if (charIndex === 0) {
+        // Fully deleted — move to next phrase
+        isDeleting = false
+        phraseIndex = (phraseIndex + 1) % greetingPhrases.length
+        typewriterTimer = setTimeout(tick, PAUSE_AFTER_DELETE)
+      } else {
+        typewriterTimer = setTimeout(tick, DELETING_SPEED)
+      }
+    }
+  }
+
+  // Start after the initial delay so it feels like the rest of the page
+  typewriterTimer = setTimeout(tick, START)
+})
+
+onUnmounted(() => {
+  if (typewriterTimer) clearTimeout(typewriterTimer)
+})
+
 const greetingLines = [
-  'I engineer structured web systems with React and Next.js, and build',
-  'real-time server infrastructure using Lua and FiveM.',
-  'From clean interfaces to scalable game server architecture.',
+  'I build structured, performant mobile & web applications with Flutter,',
+  'currently focused on Enterprise Technology at AirNav Indonesia.',
+  'From clean interfaces to scalable production-ready mobile architecture.',
 ]
 
 const statusLines = [
   'Open for remote work worldwide — full-time, contract, or freelance.',
-]
-
-const blogs = [
-  { title: 'How I Use AI as My Technical Team', url: '#' },
-  { title: 'Thinking in Constraints: The Skill That Changed My Engineering Car...', url: '#' },
-  { title: 'Why I Separate Development and Production — Even for a Game Server', url: '#' },
-  { title: 'Stop Learning Frameworks, Start Learning Systems.', url: '#' },
-  { title: 'Growing New Branches from the Same Root', url: '#' },
 ]
 
 // Line N starts after all chars of lines 0..N-1 have appeared
@@ -128,14 +144,5 @@ const contactStart = (() => {
   const totalChars = statusLines.reduce((sum, line) => sum + line.length, 0)
   return START + totalChars * STAGGER
 })()
-
-// Each blog item flows after the previous
-function blogItemDelay(index: number): number {
-  let delay = START
-  for (let i = 0; i < index; i++) {
-    delay += 3 * 25 + blogs[i]!.title.length * 8
-  }
-  return delay
-}
 </script>
 

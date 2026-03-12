@@ -1,7 +1,7 @@
 <template>
   <!--
     ExperienceSection — Timeline-style experience layout
-    Left: date & location, Center: timeline dot/line, Right: role details
+    Left: date & location, Center: timeline dot/line, Right: role details + description
   -->
   <section id="experience" class="py-24 px-6 lg:px-0">
     <div class="max-w-3xl mx-auto w-full">
@@ -20,7 +20,7 @@
         <!-- Timeline Items -->
         <div
           v-for="(exp, index) in visibleExperiences"
-          :key="exp.role"
+          :key="exp.role + exp.company"
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 + index * 100 } }"
@@ -42,7 +42,18 @@
           <div class="timeline-right">
             <h3 class="font-mono text-sm font-bold text-term-text">{{ exp.role }}</h3>
             <p class="font-mono text-xs text-term-muted">{{ exp.company }}</p>
-            <p class="font-mono text-xs text-term-muted mt-0.5">{{ exp.tech }}</p>
+            <p class="font-mono text-xs text-term-label mt-1">{{ exp.tech }}</p>
+            <!-- Description bullets -->
+            <ul v-if="exp.description?.length" class="mt-2 space-y-1">
+              <li
+                v-for="(desc, dIdx) in exp.description"
+                :key="dIdx"
+                class="font-mono text-xs text-term-muted leading-relaxed flex gap-1.5"
+              >
+                <span class="text-term-dot-green shrink-0 mt-0.5">▸</span>
+                <span>{{ desc }}</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -78,7 +89,7 @@
 
 <script setup lang="ts">
 const showAll = ref(false)
-const initialCount = 7
+const initialCount = 5
 
 interface Experience {
   date: string
@@ -86,57 +97,32 @@ interface Experience {
   role: string
   company: string
   tech: string
+  description?: string[]
 }
 
 const experiences: Experience[] = [
   {
     date: 'October 2025 - Present',
-    location: 'Sleman, Yogyakarta - Indonesia',
-    role: 'Tech-Lead',
-    company: 'GTA V Competitive League Indonesia',
-    tech: 'NextJS, Tailwind, FiveM, Lua, MySQL, Discord.js',
+    location: 'Jakarta, Indonesia',
+    role: 'IT Development - Enterprise Technology Planning & IT Operations',
+    company: 'AirNav Indonesia',
+    tech: 'Flutter, REST API, Firebase, Clean Architecture',
+    description: [
+      'Developed 3 mobile applications: NavEvent, Helpdesk Mobile, and Arsipku Mobile using Flutter, building reusable UI components to enhance design consistency and accelerate development time.',
+      'Implemented real-time communication and interaction features in the Helpdesk Mobile system, enabling rapid information exchange between users and administrators to improve service response.',
+      'Integrated REST API endpoints into mobile applications, handling complex logic such as user authentication, application state management, and role-based data processing (RBAC).',
+      'Contributed to end-to-end development of production-scale mobile applications, translating designs from Figma into responsive and functional interfaces focusing on clean architecture and maintainable code.',
+    ],
   },
   {
-    date: 'December 2024 - Present',
-    location: 'Sleman, Yogyakarta - Indonesia',
-    role: 'Software Engineer',
-    company: 'Agensi Pekerjaan Ajobthing Sdn Bhd',
-    tech: 'Vue, NuxtJS, Bootstrap, Tailwind',
-  },
-  {
-    date: 'July 2023 - December 2024',
-    location: 'Denpasar, Bali - Indonesia',
-    role: 'Frontend Engineer',
-    company: 'Itsavirus',
-    tech: 'React, NextJS, Bootstrap, Tailwind, Storybook',
-  },
-  {
-    date: 'September 2022 - April 2023',
-    location: 'Surabaya, East Java - Indonesia',
-    role: 'Software Developer',
-    company: 'InData Indonesia',
-    tech: 'React, Django, PostgreSQL, MongoDB, Docker',
-  },
-  {
-    date: 'August 2022 - September 2022',
-    location: 'Surabaya, East Java - Indonesia',
-    role: 'Engineering Intern',
-    company: 'Unilever Indonesia',
-    tech: 'React, Laravel, Django, MySQL',
-  },
-  {
-    date: 'February 2022 - July 2022',
-    location: 'Surabaya, East Java - Indonesia',
-    role: 'Mobile Development Cohort',
-    company: 'Bangkit Academy 2022',
-    tech: 'Kotlin, Firebase, Jetpack Compose, Android Studio',
-  },
-  {
-    date: 'May 2021 - February 2023',
-    location: 'Surabaya, East Java - Indonesia',
-    role: 'Founder & Full-stack Developer',
-    company: 'Breakpoint Indonesia',
-    tech: 'Laravel, Bootstrap, SCSS',
+    date: 'Oct 2023 - Nov 2023',
+    location: 'Bandung, West Java - Indonesia',
+    role: 'Web Developer Intern',
+    company: 'West Java Communication and Information Department (Diskominfo Jawa Barat)',
+    tech: 'Information Technology, Databases',
+    description: [
+      'In this internship, I focused on assisting IT staff with daily operations and developed a data archiving application to streamline information management for the department.',
+    ],
   },
 ]
 
@@ -152,11 +138,11 @@ const visibleExperiences = computed(() =>
   gap: 0;
   min-height: 80px;
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
 }
 
 .timeline-left {
-  width: 50%;
+  width: 45%;
   text-align: right;
   padding-right: 20px;
   padding-top: 2px;
@@ -188,9 +174,9 @@ const visibleExperiences = computed(() =>
 }
 
 .timeline-right {
-  width: 50%;
+  width: 55%;
   padding-left: 20px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
   flex-shrink: 0;
 }
 
@@ -210,6 +196,8 @@ const visibleExperiences = computed(() =>
   }
 
   .timeline-right {
+    width: auto;
+    flex: 1;
     padding-left: 12px;
   }
 }

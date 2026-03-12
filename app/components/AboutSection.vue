@@ -19,7 +19,7 @@
 
           <!-- Name -->
           <h2 class="text-2xl lg:text-3xl font-mono font-bold text-term-text mb-8">
-            <LetterReveal text="Fauzi M" :delay="START" :stagger="50" />
+            <LetterReveal text="Fauziman" :delay="START" :stagger="50" />
             <span class="cursor-blink text-term-muted">|</span>
           </h2>
 
@@ -32,12 +32,12 @@
             <span class="cursor-blink-2 text-term-muted">|</span>
           </p>
 
-          <!-- Description Paragraphs -->
+          <!-- Description Paragraphs (all start simultaneously) -->
           <div class="font-mono text-sm text-term-text leading-relaxed space-y-4 mb-10">
             <p v-for="(line, i) in descriptionLines" :key="i">
               <LetterReveal
                 :text="line"
-                :delay="cumDelay(descriptionLines, i, START, STAGGER)"
+                :delay="START"
                 :stagger="STAGGER"
               />
             </p>
@@ -220,10 +220,10 @@ const START = 200
 const STAGGER = 8 // fast stagger for long paragraphs
 
 const descriptionLines = [
-  'I build structured, performant web applications with React and Next.js, focusing on clean architecture and scalable systems.',
-  'Started with simple university projects in 2020, I gradually expanded into full-stack development — designing APIs, managing databases, and thinking in modular systems.',
-  'Beyond web applications, I also design and maintain custom real-time server systems using FiveM and Lua, strengthening my understanding of concurrency, state management, and performance-aware engineering.',
-  'I value clarity, structure, and long-term maintainability in everything I build.',
+  'I build structured, performant mobile and web applications using Flutter and modern web technologies, focusing on clean architecture, maintainable code, and scalable systems.',
+  'Started with simple projects during my learning journey, I gradually expanded into full-stack development — designing APIs, integrating backend services, and building modular applications that are reliable and easy to maintain.',
+  'Beyond mobile development, I also build web applications and work with system integrations, strengthening my understanding of application architecture, performance optimization, and real-world product development.',
+  'I value clarity, structured code, and long-term maintainability in every system I build.',
 ]
 
 // Cumulative delay helper

@@ -156,7 +156,8 @@
 
           <!-- === SQUARE CARD === -->
           <template v-else>
-            <div class="w-full h-full flex items-center justify-center">
+            <!-- Emoji center (visible by default, fades on hover) -->
+            <div class="w-full h-full flex items-center justify-center transition-opacity duration-300 group-hover:opacity-20">
               <img
                 v-if="project.logoImage"
                 :alt="project.title || 'Project'"
@@ -165,6 +166,18 @@
                 loading="lazy"
               />
               <span v-else class="text-5xl opacity-70">{{ project.emoji }}</span>
+            </div>
+            <!-- Info overlay (appears on hover) -->
+            <div class="square-info-overlay">
+              <h3 v-if="project.title" class="font-mono text-sm font-bold text-white mb-1">{{ project.title }}</h3>
+              <p v-if="project.description" class="font-mono text-xs text-white/80 leading-relaxed line-clamp-3">{{ project.description }}</p>
+              <div v-if="project.tech?.length" class="flex flex-wrap gap-1.5 mt-2">
+                <span
+                  v-for="tech in project.tech"
+                  :key="tech"
+                  class="tech-pill-sm"
+                >{{ tech }}</span>
+              </div>
             </div>
           </template>
         </div>
@@ -189,134 +202,41 @@ interface Project {
 }
 
 const projects: Project[] = [
-  // Row 1
   {
-    title: 'GCLI FiveM Server',
-    description: 'GTA V Competitive League Indonesia FiveM Server',
-    tech: ['Lua', 'MySQL', 'FiveM'],
+    title: 'NavEvent',
+    description: 'A comprehensive mobile event management system for AirNav Indonesia built with Flutter, featuring real-time updates and interactive scheduling.',
+    tech: ['Flutter', 'REST API', 'Figma', 'Clean Architecture'],
     link: '#',
-    externalLink: '#',
-    color: '#000000',
-    emoji: '🎮',
+    mockupImage: '/images/projects/naveven.png',
+    color: '#0a0f18',
     size: 'wide',
   },
   {
-    title: 'GCLI Official Website',
-    description: 'GTA V Competitive League Indonesia Official Website',
-    tech: ['Next.js', 'TailwindCSS', 'Prisma', 'MySQL'],
+    title: 'Helpdesk Mobile',
+    description: 'Enterprise internal support application with real-time communication features between users and administrators.',
+    tech: ['Flutter', 'WebSocket', 'REST API'],
     link: '#',
-    externalLink: '#',
-    color: '#000000',
-    emoji: '🌐',
+    mockupImage: '/images/projects/helpdesk.png',
+    color: '#0f1a26',
     size: 'tall',
   },
   {
-    title: '',
-    emoji: '🏆',
-    color: '#2a3a4a',
-    size: 'square',
-  },
-  // Row 2
-  {
-    title: '',
-    emoji: '🔮',
-    color: '#0d1a2e',
-    size: 'square',
-  },
-  {
-    title: '',
-    emoji: '⚙️',
-    color: '#f5f0e5',
-    size: 'square',
-  },
-  // Row 3
-  {
-    title: 'Chart Demo',
-    description: 'My free-time project for learning Chart.js and D3.js',
-    tech: ['Next.js', 'Chart.js', 'D3.js'],
+    title: 'Arsipku Mobile',
+    description: 'Production-ready mobile archive management system for secure and efficient company document handling.',
+    tech: ['Flutter', 'Clean Architecture', 'REST API'],
     link: '#',
-    color: '#000000',
-    emoji: '📊',
+    mockupImage: '/images/projects/arsipku.png',
+    color: '#1a1e2a',
     size: 'wide',
   },
   {
-    title: 'IFEM 2022',
-    description: 'Biggest Mechanical Engineering ITS Event.',
-    tech: ['Laravel', 'Bootstrap', 'SCSS'],
+    title: 'Wolio Learning',
+    description: 'My University Capstone Project — An interactive digital learning platform designed to bridge the gap between students and educational resources.',
+    tech: ['Vue.js', 'Firebase', 'TailwindCSS'],
     link: '#',
-    color: '#000000',
-    emoji: '🎓',
-    size: 'tall',
-  },
-  // Row 4
-  {
-    title: 'Petrolida 2022',
-    description: 'Biggest Events by SPE ITS.',
-    tech: ['React', 'Bootstrap', 'Laravel'],
-    link: '#',
-    color: '#000000',
-    emoji: '⚡',
+    emoji: '📚',
+    color: '#0f2a20',
     size: 'wide',
-  },
-  // Row 5
-  {
-    title: '',
-    emoji: '📱',
-    color: '#1a2636',
-    size: 'square',
-  },
-  {
-    title: '',
-    emoji: '🔧',
-    color: '#0d1a3e',
-    size: 'square',
-  },
-  // Row 6
-  {
-    title: 'Dafkur.com 2.0',
-    description: 'My second version of Personal Website',
-    tech: ['React', 'Bootstrap', 'SCSS'],
-    link: '#',
-    color: '#000000',
-    emoji: '💻',
-    size: 'wide',
-  },
-  {
-    title: 'Smart Hydroponic',
-    description: 'My first project for Internet of Things.',
-    tech: ['Laravel', 'Bootstrap', 'SCSS'],
-    link: '#',
-    color: '#000000',
-    emoji: '🌱',
-    size: 'tall',
-  },
-  {
-    title: '',
-    emoji: '🔥',
-    color: '#1e2a3a',
-    size: 'square',
-  },
-  // Row 7
-  {
-    title: '',
-    emoji: '🔗',
-    color: '#a8e6cf',
-    size: 'square',
-  },
-  {
-    title: 'Crawlerhub',
-    description: 'Web Crawler by InData Indonesia.',
-    tech: ['React', 'AntDesign', 'Django'],
-    link: '#',
-    color: '#000000',
-    emoji: '🕷️',
-    size: 'wide',
-  },
-  {
-    title: '',
-    emoji: '🎨',
-    color: '#f8d7da',
-    size: 'square',
   },
 ]
 </script>
@@ -409,6 +329,37 @@ const projects: Project[] = [
   background-color: rgba(77, 201, 176, 0.25);
   border-radius: 32px;
   display: flex;
+}
+
+/* Small tech pill for square cards */
+.tech-pill-sm {
+  padding: 2px 8px;
+  background-color: rgba(77, 201, 176, 0.3);
+  border-radius: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: white;
+}
+
+/* ============================
+   Square Card — Hover Info Overlay
+   ============================ */
+.square-info-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.85) 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  border-radius: 15px;
+}
+
+.project-card:hover .square-info-overlay {
+  opacity: 1;
 }
 
 /* ============================
