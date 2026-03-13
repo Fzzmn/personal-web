@@ -68,7 +68,7 @@ const START = 200   // everything starts at the same time
 const STAGGER = 10  // ms between chars for paragraph text
 
 // ── Typewriter cycle for greeting ──
-const greetingPhrases = ['hello world!', 'hello everyone!', 'hello guys!']
+const greetingPhrases = ['Hello world!', 'Hello everyone!', 'Hello guys!']
 const displayedText = ref('')
 let typewriterTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -83,6 +83,7 @@ onMounted(() => {
 
   function tick() {
     const currentPhrase = greetingPhrases[phraseIndex]!
+    const prefix = 'Hello '
 
     if (!isDeleting) {
       // Typing
@@ -101,8 +102,8 @@ onMounted(() => {
       charIndex--
       displayedText.value = currentPhrase.slice(0, charIndex)
 
-      if (charIndex === 0) {
-        // Fully deleted — move to next phrase
+      if (charIndex === prefix.length) {
+        // Deleted back to prefix — move to next phrase
         isDeleting = false
         phraseIndex = (phraseIndex + 1) % greetingPhrases.length
         typewriterTimer = setTimeout(tick, PAUSE_AFTER_DELETE)
@@ -121,9 +122,9 @@ onUnmounted(() => {
 })
 
 const greetingLines = [
-  'I build structured, performant mobile & web applications with Flutter,',
-  'currently focused on Enterprise Technology at AirNav Indonesia.',
-  'From clean interfaces to scalable production-ready mobile architecture.',
+  'I build structured, performant mobile & web applications with Flutter.',
+  'Currently focused on enterprise-grade systems and scalable application architecture.',
+  'From clean interfaces to production-ready mobile solutions.',
 ]
 
 const statusLines = [
