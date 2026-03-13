@@ -7,7 +7,7 @@
     <div class="w-full">
       <div class="flex items-center justify-between font-mono text-xs text-term-muted">
         <div>
-          <p>Tangerang, Banten - Indonesia</p>
+          <p>Tangerang, Indonesia</p>
           <p>UTC+7 - {{ currentTime }}</p>
         </div>
         <div class="text-right">

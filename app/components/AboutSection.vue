@@ -28,7 +28,7 @@
             <LetterReveal text="Experienced as" :delay="START" :stagger="25" />
           </p>
           <p class="font-mono text-base lg:text-lg font-bold text-term-text mb-6">
-            <LetterReveal text="Frontend-focused Full-stack Engineer" :delay="START" :stagger="15" />
+            <LetterReveal text="Mobile-Focused Full-Stack Engineer" :delay="START" :stagger="15" />
             <span class="cursor-blink-2 text-term-muted">|</span>
           </p>
 
@@ -160,14 +160,14 @@
                 <LetterReveal text="Currently working as" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="IT Development - Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
+                <LetterReveal text="IT Development Intern – Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
               </p>
             </div>
 
             <!-- Employed at -->
             <div>
               <p class="text-term-label font-mono text-xs mb-0.5">
-                <LetterReveal text="Employed at" :delay="START" :stagger="18" />
+                <LetterReveal text="At" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
                 <LetterReveal text="AirNav Indonesia" :delay="START" :stagger="15" />
@@ -180,7 +180,7 @@
                 <LetterReveal text="Based in" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="Jakarta, Indonesia" :delay="START" :stagger="15" />
+                <LetterReveal text="Tangerang, Indonesia" :delay="START" :stagger="15" />
               </p>
             </div>
           </div>
@@ -233,9 +233,10 @@ const START = 200
 const STAGGER = 8 // fast stagger for long paragraphs
 
 const descriptionLines = [
-  'I build structured, performant mobile and web applications using Flutter and modern web technologies, focusing on clean architecture, maintainable code, and scalable systems.',
-  'Started with simple projects during my learning journey, I gradually expanded into full-stack development — designing APIs, integrating backend services, and building modular applications that are reliable and easy to maintain.',
-  'Beyond mobile development, I also build web applications and work with system integrations, strengthening my understanding of application architecture, performance optimization, and real-world product development.',
+  'I primarily focus on building modern mobile applications using Flutter, creating performant, well-structured, and maintainable apps designed for real-world use.',
+  'Alongside mobile development, I also work on web frontend development and backend integration, allowing me to build complete application flows from user interfaces to API communication.',
+  'Throughout my development journey, I have worked on multiple application projects — designing mobile interfaces, integrating REST APIs, and contributing to both frontend and backend systems. These experiences helped me develop a strong understanding of application architecture, performance optimization, and scalable system design.',
+  'While my main expertise lies in mobile development with Flutter, I also actively build web interfaces and collaborate with backend services to deliver complete and reliable digital products.',
   'I value clarity, structured code, and long-term maintainability in every system I build.',
 ]
 
