@@ -145,7 +145,7 @@
           <div class="mb-8">
             <div class="w-full aspect-[4/5] rounded-lg overflow-hidden border-2 border-base-border bg-base-card">
               <img
-                src="/assets/images/profile.jpeg"
+                src="/assets/images/profil.png"
                 alt="Profile photo"
                 class="w-full h-full object-cover"
               />
@@ -153,11 +153,11 @@
           </div>
 
           <!-- Info Cards -->
-          <div class="space-y-5 mb-8">
-            <!-- Currently working as -->
+          <div class="space-y-8 mb-8">
+            <!-- Currently undertaking an internship as -->
             <div>
-              <p class="text-term-label font-mono text-xs mb-0.5">
-                <LetterReveal text="Currently working as" :delay="START" :stagger="18" />
+              <p class="text-term-label font-mono text-xs mb-3">
+                <LetterReveal text="Currently undertaking an internship as" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
                 <LetterReveal text="IT Development Intern – Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
@@ -166,7 +166,7 @@
 
             <!-- Employed at -->
             <div>
-              <p class="text-term-label font-mono text-xs mb-0.5">
+              <p class="text-term-label font-mono text-xs mb-3">
                 <LetterReveal text="At" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
@@ -176,7 +176,7 @@
 
             <!-- Based in -->
             <div>
-              <p class="text-term-label font-mono text-xs mb-0.5">
+              <p class="text-term-label font-mono text-xs mb-3">
                 <LetterReveal text="Based in" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">

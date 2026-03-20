@@ -3,7 +3,7 @@
     FooterSection — Minimal footer with location, live clock, and version
     Matches dafkur.com style exactly
   -->
-  <footer class="py-6 px-8 lg:px-12">
+  <footer class="py-6 px-8 lg:px-12 shrink-0">
     <div class="w-full">
       <div class="flex items-center justify-between font-mono text-xs text-term-muted">
         <div>

@@ -4,7 +4,7 @@
     All sections start typing simultaneously on page load
     Within each section, lines flow continuously
   -->
-  <section id="home" class="relative min-h-screen flex flex-col justify-center px-6 lg:px-0">
+  <section id="home" class="relative flex-1 min-h-[calc(100vh-80px)] flex flex-col justify-center px-6 lg:px-0">
     <!-- Terminal Dots (left side) -->
     <div class="fixed left-6 lg:left-10 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-40">
       <div class="w-2.5 h-2.5 rounded-full bg-term-dot-green opacity-80" />
