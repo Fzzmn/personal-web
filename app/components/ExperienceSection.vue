@@ -21,39 +21,98 @@
         <div
           v-for="(exp, index) in visibleExperiences"
           :key="exp.role + exp.company"
-          v-motion
-          :initial="{ opacity: 0, y: 20 }"
-          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 + index * 100 } }"
-          class="timeline-item"
+          class="timeline-item group"
+          :data-index="index"
+          :ref="(el) => { if (el) itemRefs[index] = el as HTMLElement }"
         >
           <!-- Left: Date & Location -->
-          <div class="timeline-left">
-            <p class="font-mono text-sm text-term-text">{{ exp.date }}</p>
+          <div 
+            class="timeline-left"
+            v-motion
+            :initial="{ opacity: 0, x: -30 }"
+            :visible-once="{ opacity: 1, x: 0, transition: { duration: 600, ease: 'easeOut', delay: 100 } }"
+          >
+            <p class="font-mono text-sm text-term-text transition-colors duration-300" :class="{'text-[#4dc9b0]': activeItems.has(index)}">{{ exp.date }}</p>
             <p class="font-mono text-xs text-term-muted">{{ exp.location }}</p>
           </div>
 
           <!-- Center: Dot & Line -->
           <div class="timeline-center">
-            <div class="timeline-dot" />
-            <div v-if="index < visibleExperiences.length - 1" class="timeline-line" />
+            <div 
+              class="timeline-dot-wrapper"
+              v-motion
+              :initial="{ scale: 0, opacity: 0 }"
+              :visible-once="{ scale: 1, opacity: 1, transition: { duration: 400, delay: 200 } }"
+            >
+              <div 
+                class="timeline-dot transition-all duration-500 ease-out"
+                :class="{ 
+                  'scale-125 shadow-[0_0_15px_rgba(77,201,176,0.6)] !bg-[#5EEAD4]': activeItems.has(index),
+                  'scale-100 shadow-none bg-[#4dc9b0]': !activeItems.has(index)
+                }" 
+              />
+            </div>
+            
+            <div v-if="index < visibleExperiences.length - 1" class="timeline-line relative overflow-hidden flex flex-col">
+              <div class="w-full h-full bg-[#4dc9b0] origin-top opacity-80"
+                   v-motion
+                   :initial="{ scaleY: 0 }"
+                   :visible-once="{ scaleY: 1, transition: { duration: 1000, ease: 'easeOut', delay: 400 } }"
+              />
+            </div>
           </div>
 
           <!-- Right: Role Details -->
           <div class="timeline-right">
-            <h3 class="font-mono text-sm font-bold text-term-text">{{ exp.role }}</h3>
-            <p class="font-mono text-xs text-term-muted">{{ exp.company }}</p>
-            <p class="font-mono text-xs text-term-label mt-1">{{ exp.tech }}</p>
-            <!-- Description bullets -->
-            <ul v-if="exp.description?.length" class="mt-2 space-y-1">
-              <li
-                v-for="(desc, dIdx) in exp.description"
-                :key="dIdx"
-                class="font-mono text-xs text-term-muted leading-relaxed flex gap-1.5"
+            <div 
+              class="content-card"
+              v-motion
+              :initial="{ opacity: 0, x: 30 }"
+              :visible-once="{ opacity: 1, x: 0, transition: { duration: 600, ease: 'easeOut', delay: 150 } }"
+            >
+              <h3 
+                class="font-mono text-sm font-bold text-term-text transition-colors duration-300"
+                :class="{'text-[#4dc9b0]': activeItems.has(index)}"
+                v-motion
+                :initial="{ opacity: 0, y: 10 }"
+                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 300 } }"
               >
-                <span class="text-term-dot-green shrink-0 mt-0.5">▸</span>
-                <span>{{ desc }}</span>
-              </li>
-            </ul>
+                {{ exp.role }}
+              </h3>
+              
+              <p 
+                class="font-mono text-xs text-term-muted"
+                v-motion
+                :initial="{ opacity: 0, y: 10 }"
+                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 400 } }"
+              >
+                {{ exp.company }}
+              </p>
+              
+              <p 
+                class="font-mono text-xs text-term-label mt-1"
+                v-motion
+                :initial="{ opacity: 0, y: 10 }"
+                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 500 } }"
+              >
+                {{ exp.tech }}
+              </p>
+              
+              <!-- Description bullets -->
+              <ul v-if="exp.description?.length" class="mt-2 space-y-1">
+                <li
+                  v-for="(desc, dIdx) in exp.description"
+                  :key="dIdx"
+                  class="font-mono text-xs text-term-muted leading-relaxed flex gap-1.5"
+                  v-motion
+                  :initial="{ opacity: 0, x: 10 }"
+                  :visible-once="{ opacity: 1, x: 0, transition: { duration: 400, delay: 600 + (dIdx * 100) } }"
+                >
+                  <span class="text-term-dot-green shrink-0 mt-0.5" :class="{'animate-pulse': activeItems.has(index)}">▸</span>
+                  <span>{{ desc }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -72,7 +131,7 @@
         >
           <!-- Chevron Down Icon -->
           <svg
-            class="w-6 h-6 animate-bounce"
+            class="w-6 h-6 animate-bounce group-hover:text-[#4dc9b0]"
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
@@ -80,7 +139,7 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
-          <span class="font-mono text-sm">See Others</span>
+          <span class="font-mono text-sm group-hover:text-[#4dc9b0]">See Others</span>
         </button>
       </div>
     </div>
@@ -88,6 +147,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+
 const showAll = ref(false)
 const initialCount = 5
 
@@ -129,6 +190,51 @@ const experiences: Experience[] = [
 const visibleExperiences = computed(() =>
   showAll.value ? experiences : experiences.slice(0, initialCount)
 )
+
+const itemRefs = ref<HTMLElement[]>([])
+const activeItems = ref<Set<number>>(new Set())
+let observer: IntersectionObserver | null = null
+
+onMounted(() => {
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const index = Number(entry.target.getAttribute('data-index'))
+      if (entry.isIntersecting) {
+        // Create a new set to ensure reactivity in Vue
+        const newSet = new Set(activeItems.value)
+        newSet.add(index)
+        activeItems.value = newSet
+      } else {
+        const newSet = new Set(activeItems.value)
+        newSet.delete(index)
+        activeItems.value = newSet
+      }
+    })
+  }, { rootMargin: '-20% 0px -20% 0px', threshold: 0 })
+
+  observeItems()
+})
+
+const observeItems = () => {
+  if (!observer) return
+  itemRefs.value.forEach(el => {
+    if (el) observer?.observe(el)
+  })
+}
+
+watch(visibleExperiences, async () => {
+  await nextTick()
+  if (observer) {
+    observer.disconnect()
+    observeItems()
+  }
+})
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+  }
+})
 </script>
 
 <style scoped>
@@ -157,20 +263,28 @@ const visibleExperiences = computed(() =>
   width: 20px;
 }
 
+.timeline-dot-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  width: 14px;
+  height: 14px;
+}
+
 .timeline-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #4dc9b0;
-  flex-shrink: 0;
-  margin-top: 5px;
 }
 
 .timeline-line {
   width: 1px;
   flex: 1;
-  min-height: 50px;
+  min-height: 60px;
   background-color: #2a3f55;
+  margin-top: 4px;
+  margin-bottom: -4px;
 }
 
 .timeline-right {
@@ -178,6 +292,23 @@ const visibleExperiences = computed(() =>
   padding-left: 20px;
   padding-bottom: 28px;
   flex-shrink: 0;
+}
+
+/* Hover Content Card */
+.content-card {
+  padding: 16px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.content-card:hover {
+  transform: scale(1.02);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile responsive */
@@ -199,6 +330,12 @@ const visibleExperiences = computed(() =>
     width: auto;
     flex: 1;
     padding-left: 12px;
+  }
+  
+  .content-card {
+    padding: 12px;
+    margin-top: -12px;
+    margin-left: -8px; 
   }
 }
 </style>
