@@ -37,27 +37,30 @@
           </div>
 
           <!-- Center: Dot & Line -->
-          <div class="timeline-center">
+          <div class="timeline-center relative flex flex-col items-center flex-shrink-0 w-5">
+            <!-- Global Line segments -->
+            <div class="absolute w-[1px] bg-[#2a3f55] left-1/2 -translate-x-1/2 z-0"
+                 :class="{
+                    'top-[-48px]': index === 0,
+                    'top-0': index !== 0,
+                    'bottom-[-36px]': index === visibleExperiences.length - 1,
+                    'bottom-0': index !== visibleExperiences.length - 1
+                 }"
+            />
+            
+            <!-- Dot -->
             <div 
-              class="timeline-dot-wrapper"
+              class="timeline-dot-wrapper relative z-10"
               v-motion
               :initial="{ scale: 0, opacity: 0 }"
               :visible-once="{ scale: 1, opacity: 1, transition: { duration: 400, delay: 200 } }"
             >
               <div 
-                class="timeline-dot transition-all duration-500 ease-out"
+                class="w-[8px] h-[8px] rounded-full transition-colors duration-500 ease-out ring-[6px] ring-[#0a0f1a]"
                 :class="{ 
-                  'scale-125 shadow-[0_0_15px_rgba(77,201,176,0.6)] !bg-[#5EEAD4]': activeItems.has(index),
-                  'scale-100 shadow-none bg-[#4dc9b0]': !activeItems.has(index)
+                  'bg-[#4dc9b0]': activeItems.has(index),
+                  'bg-[#6b7f94]': !activeItems.has(index)
                 }" 
-              />
-            </div>
-            
-            <div v-if="index < visibleExperiences.length - 1" class="timeline-line relative overflow-hidden flex flex-col">
-              <div class="w-full h-full bg-[#4dc9b0] origin-top opacity-80"
-                   v-motion
-                   :initial="{ scaleY: 0 }"
-                   :visible-once="{ scaleY: 1, transition: { duration: 1000, ease: 'easeOut', delay: 400 } }"
               />
             </div>
           </div>
@@ -123,23 +126,20 @@
         v-motion
         :initial="{ opacity: 0 }"
         :visible-once="{ opacity: 1, transition: { duration: 500, delay: 600 } }"
-        class="flex flex-col items-center mt-8 gap-2"
+        class="flex flex-col items-center mt-6 relative z-10"
       >
         <button
-          class="flex flex-col items-center gap-1 text-term-muted hover:text-term-label transition-colors duration-300 group"
+          class="flex flex-col items-center gap-1 transition-colors duration-300 group"
           @click="showAll = true"
         >
           <!-- Chevron Down Icon -->
-          <svg
-            class="w-6 h-6 animate-bounce group-hover:text-[#4dc9b0]"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-          </svg>
-          <span class="font-mono text-sm group-hover:text-[#4dc9b0]">See Others</span>
+          <div class="w-8 h-8 rounded-full bg-[#2a3f55] flex items-center justify-center text-[#c8d6e5] group-hover:bg-[#4dc9b0] group-hover:text-[#0a0f1a] transition-all ring-4 ring-[#0a0f1a]">
+            <!-- Double Chevron -->
+            <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+          </div>
+          <span class="font-mono text-sm text-[#6b7f94] group-hover:text-[#4dc9b0] mt-1">See Others</span>
         </button>
       </div>
     </div>
@@ -240,7 +240,7 @@ onUnmounted(() => {
 <style scoped>
 .timeline-item {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0;
   min-height: 80px;
   width: 100%;
@@ -273,19 +273,12 @@ onUnmounted(() => {
 }
 
 .timeline-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
-.timeline-line {
-  width: 1px;
-  flex: 1;
-  min-height: 60px;
-  background-color: #2a3f55;
-  margin-top: 4px;
-  margin-bottom: -4px;
-}
+
 
 .timeline-right {
   width: 55%;
