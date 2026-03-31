@@ -95,42 +95,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- GitLab Contribution Graph -->
-            <div>
-              <p class="font-mono text-sm font-bold text-term-text mb-3">
-                <LetterReveal text="GitLab" :delay="START" :stagger="30" />
-              </p>
-              <div class="bg-base-card rounded-lg p-4 border border-base-border overflow-x-auto">
-                <div class="contribution-grid">
-                  <div
-                    v-for="(week, wIndex) in gitlabContributions"
-                    :key="'gl-w-' + wIndex"
-                    class="contribution-column"
-                  >
-                    <div
-                      v-for="(day, dIndex) in week"
-                      :key="'gl-d-' + dIndex"
-                      class="contribution-cell"
-                      :class="getContributionClass(day)"
-                      :title="`${day} contributions`"
-                    />
-                  </div>
-                </div>
-                <div class="flex justify-between items-center mt-3">
-                  <span class="font-mono text-xs text-term-muted">{{ totalGitlabContribs }} contributions in the last year</span>
-                  <div class="flex items-center gap-1">
-                    <span class="font-mono text-xs text-term-muted">Less</span>
-                    <div class="contribution-cell level-0" />
-                    <div class="contribution-cell level-1" />
-                    <div class="contribution-cell level-2" />
-                    <div class="contribution-cell level-3" />
-                    <div class="contribution-cell level-4" />
-                    <span class="font-mono text-xs text-term-muted">More</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -266,7 +230,6 @@ const generatePlaceholder = (weeks: number) => {
 }
 
 const githubContributions = ref<any[][]>(generatePlaceholder(52))
-const gitlabContributions = ref<any[][]>(generatePlaceholder(52))
 const monthLabels = ref<{ name: string; key: string; width: number }[]>([])
 
 onMounted(async () => {
@@ -321,10 +284,6 @@ onMounted(async () => {
 
 const totalGithubContribs = computed(() =>
   githubContributions.value.reduce((sum, week) => sum + week.reduce((s, d) => s + (d.count || 0), 0), 0)
-)
-
-const totalGitlabContribs = computed(() =>
-  gitlabContributions.value.reduce((sum, week) => sum + week.reduce((s, d) => s + (d.count || 0), 0), 0)
 )
 
 const getContributionClass = (level: string): string => {
