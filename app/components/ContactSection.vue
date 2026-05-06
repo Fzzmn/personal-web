@@ -4,7 +4,7 @@
     Left: Social media cards grid (2x3)
     Right: Contact form + email copy
   -->
-  <section id="contact" class="pt-20 pb-16 px-6 lg:px-8">
+  <section id="contact" class="min-h-screen flex flex-col justify-center py-24 px-6 lg:px-8">
     <div class="max-w-5xl mx-auto w-full">
       <div class="contact-grid">
 
@@ -80,7 +80,7 @@
               <textarea
                 id="c-message"
                 v-model="form.message"
-                rows="3"
+                rows="5"
                 placeholder="Your message.."
                 class="form-input resize-none"
               />
@@ -220,8 +220,8 @@ const socialLinks = [
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  min-height: 96px;
+  padding: 16px;
+  min-height: 160px;
   border-radius: 14px;
   background: rgba(10, 15, 26, 0.5);
   backdrop-filter: blur(12px) saturate(1.4);
