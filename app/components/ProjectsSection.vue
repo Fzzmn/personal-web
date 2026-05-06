@@ -97,7 +97,7 @@
 <style scoped>
 /* PAGE */
 .pg {
-  background: #0d1117;
+  background: #0a0f1a;
   min-height: 100vh;
   padding: 6rem 1.5rem 7rem;
 }
@@ -136,8 +136,8 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: #161b22;
-  border: 1px solid rgba(255,255,255,.07);
+  background: #111827;
+  border: 1px solid rgba(42,63,85,.6);
   cursor: pointer;
   transition: transform .35s cubic-bezier(.34,1.4,.64,1),
               box-shadow .3s ease,
@@ -145,8 +145,8 @@
 }
 .card:hover {
   transform: translateY(-6px) scale(1.015);
-  border-color: rgba(6,182,212,.25);
-  box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(6,182,212,.12);
+  border-color: rgba(77,201,176,.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(77,201,176,.12);
 }
 
 /* ACTION BUTTONS — slide in from top on hover */
