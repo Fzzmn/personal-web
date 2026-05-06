@@ -2,22 +2,21 @@
   <!--
     ContactSection — Two-column layout
     Left: Social media cards grid (2x3)
-    Right: Contact form + email
+    Right: Contact form + email copy
   -->
-  <section id="contact" class="pt-28 pb-20 px-6 lg:px-8">
-    <div class="max-w-6xl mx-auto w-full">
-      <!-- Two Column Layout: 40% / 60% -->
+  <section id="contact" class="pt-20 pb-16 px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto w-full">
       <div class="contact-grid">
 
-        <!-- Left: Social Cards Grid (40%) -->
+        <!-- Left: Social Cards Grid -->
         <div>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-3">
             <a
               v-for="(social, index) in socialLinks"
               :key="social.name"
               v-motion
-              :initial="{ opacity: 0, y: 20 }"
-              :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 100 + index * 80 } }"
+              :initial="{ opacity: 0, y: 16 }"
+              :visible-once="{ opacity: 1, y: 0, transition: { duration: 350, delay: 80 + index * 60 } }"
               :href="social.url"
               target="_blank"
               rel="noopener noreferrer"
@@ -29,39 +28,34 @@
               </div>
 
               <!-- Arrow (top-right) -->
-              <div class="absolute top-4 right-4">
+              <div class="absolute top-3 right-3">
                 <svg
-                  class="w-4 h-4 text-term-muted group-hover:text-term-label
-                         group-hover:-translate-y-0.5 group-hover:translate-x-0.5
-                         transition-all duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
+                  class="w-3.5 h-3.5 text-term-muted group-hover:text-term-label group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300"
+                  fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </div>
 
               <!-- Name (bottom-left) -->
-              <span class="absolute bottom-4 left-4 font-mono text-sm text-term-text group-hover:text-term-label transition-colors duration-300">
+              <span class="absolute bottom-3 left-3 font-mono text-xs text-term-text group-hover:text-term-label transition-colors duration-300">
                 {{ social.name }}
               </span>
             </a>
           </div>
         </div>
 
-        <!-- Right: Contact Form + Email (60%) -->
+        <!-- Right: Contact Form + Email -->
         <div
           v-motion
-          :initial="{ opacity: 0, x: 20 }"
-          :visible-once="{ opacity: 1, x: 0, transition: { duration: 500, delay: 300 } }"
+          :initial="{ opacity: 0, x: 16 }"
+          :visible-once="{ opacity: 1, x: 0, transition: { duration: 450, delay: 250 } }"
         >
           <!-- Form Card -->
-          <div class="form-card rounded-2xl p-7 mb-4">
-            <h3 class="font-mono text-sm text-term-text mb-5">Drop me a message:</h3>
+          <div class="form-card rounded-xl p-5 mb-3">
+            <h3 class="font-mono text-xs text-term-muted mb-4">Drop me a message:</h3>
 
-            <form class="space-y-3" @submit.prevent="handleSubmit">
+            <form class="space-y-2.5" @submit.prevent="handleSubmit">
               <input
                 id="c-name"
                 v-model="form.name"
@@ -86,13 +80,13 @@
               <textarea
                 id="c-message"
                 v-model="form.message"
-                rows="4"
+                rows="3"
                 placeholder="Your message.."
                 class="form-input resize-none"
               />
               <button
                 type="submit"
-                class="w-full py-3 rounded-lg bg-base-nav font-mono text-sm text-term-text
+                class="w-full py-2.5 rounded-lg bg-base-nav font-mono text-xs text-term-text
                        hover:bg-base-nav-active hover:text-term-label
                        transition-all duration-300"
               >
@@ -103,20 +97,32 @@
 
           <!-- Email Section -->
           <div>
-            <p class="font-mono text-sm text-term-text mb-3">or email me at:</p>
-            <a
-              :href="`mailto:${email}`"
-              class="flex items-center justify-center gap-2 w-full py-3 rounded-lg
-                     bg-base-nav/60 border border-base-border
-                     font-mono text-sm text-term-text
-                     hover:bg-base-nav hover:text-term-label
-                     transition-all duration-300"
+            <p class="font-mono text-xs text-term-muted mb-2">or email me at:</p>
+            <button
+              class="email-copy-btn group w-full"
+              @click="copyEmail"
             >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <!-- Mail icon -->
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
               </svg>
-              {{ email }}
-            </a>
+
+              <!-- Label — swaps on copy -->
+              <span class="font-mono text-xs transition-all duration-200">
+                <span v-if="!copied">{{ email }}</span>
+                <span v-else class="text-term-label flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Copied to clipboard!
+                </span>
+              </span>
+
+              <!-- Hover hint -->
+              <span class="ml-auto font-mono text-[10px] text-term-muted opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                {{ copied ? '' : 'click to copy' }}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -133,102 +139,116 @@ const form = reactive({
   message: '',
 })
 
-const email = 'hello@fauzi.dev'
+const email = 'fauzimanz23@gmail.com'
+const copied = ref(false)
 
 const handleSubmit = () => {
   console.log('Form submitted:', form)
   alert('Message sent! (Demo)')
 }
 
+const copyEmail = async () => {
+  try {
+    await navigator.clipboard.writeText(email)
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2500)
+  } catch {
+    // fallback
+    const el = document.createElement('textarea')
+    el.value = email
+    document.body.appendChild(el)
+    el.select()
+    document.execCommand('copy')
+    document.body.removeChild(el)
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2500)
+  }
+}
+
 const socialLinks = [
   {
     name: 'Instagram',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" /></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" /></svg>',
   },
   {
     name: 'WhatsApp',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1zm0 0a5 5 0 0 0 5 5m0 0a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1zm0 0a5 5 0 0 0 5 5m0 0a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1h1z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   },
   {
     name: 'GitHub',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>',
   },
   {
     name: 'LinkedIn',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
   },
   {
     name: 'Discord',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>',
   },
   {
     name: 'TikTok',
     url: '#',
-    svg: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.66a8.28 8.28 0 0 0 4.83 1.56V6.77a4.83 4.83 0 0 1-1.07-.08z"/></svg>',
+    svg: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.66a8.28 8.28 0 0 0 4.83 1.56V6.77a4.83 4.83 0 0 1-1.07-.08z"/></svg>',
   },
 ]
 </script>
 
 <style scoped>
-/* Two-column grid: 40% left / 60% right */
+/* Two-column grid */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: start;
 }
 
 @media (min-width: 1024px) {
   .contact-grid {
     grid-template-columns: 2fr 3fr;
-    gap: 2.5rem;
+    gap: 2rem;
   }
 }
 
-/* Social Media Card — Transparent frosted glass */
+/* Social Media Card */
 .social-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  min-height: 110px;
-  border-radius: 16px;
-  /* Transparent frosted glass — same as navbar */
+  padding: 12px;
+  min-height: 96px;
+  border-radius: 14px;
   background: rgba(10, 15, 26, 0.5);
   backdrop-filter: blur(12px) saturate(1.4);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  border: 1px solid rgba(77, 201, 176, 0.15);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(77, 201, 176, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .social-card:hover {
-  border-color: rgba(77, 201, 176, 0.5);
+  border-color: rgba(77, 201, 176, 0.45);
   background: rgba(10, 15, 26, 0.65);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Social Icon Container */
+/* Social Icon */
 .social-icon-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid #2a3f55;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #6b7f94;
-  transition: all 0.3s ease;
+  transition: all 0.28s ease;
 }
 
 .social-card:hover .social-icon-wrapper {
@@ -239,33 +259,52 @@ const socialLinks = [
 /* Form Input */
 .form-input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid #2a3f55;
   background-color: transparent;
   color: #c8d6e5;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875rem;
-  transition: border-color 0.3s ease;
+  font-size: 0.75rem;
+  transition: border-color 0.25s ease;
   outline: none;
 }
 
 .form-input::placeholder {
-  color: rgba(107, 127, 148, 0.6);
+  color: rgba(107, 127, 148, 0.55);
 }
 
 .form-input:focus {
-  border-color: rgba(77, 201, 176, 0.5);
+  border-color: rgba(77, 201, 176, 0.45);
 }
 
-/* Form Card — Transparent frosted glass like navbar */
+/* Form Card */
 .form-card {
   background: rgba(10, 15, 26, 0.5);
   backdrop-filter: blur(12px) saturate(1.4);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  border: 1px solid rgba(77, 201, 176, 0.15);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(77, 201, 176, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Email Copy Button */
+.email-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(10, 15, 26, 0.5);
+  border: 1px solid rgba(42, 63, 85, 0.8);
+  color: #c8d6e5;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.email-copy-btn:hover {
+  background: rgba(10, 15, 26, 0.75);
+  border-color: rgba(77, 201, 176, 0.4);
+  color: #4dc9b0;
 }
 </style>
