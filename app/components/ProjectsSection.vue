@@ -9,7 +9,7 @@
       <div class="grid">
 
         <!-- WIDE: NavEvent -->
-        <div class="card card-wide group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:80}}">
+        <NuxtLink to="/projects/navevent" class="card card-wide group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:80}}">
           <div class="card-actions">
             <a href="#" class="act-btn" @click.prevent>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -28,10 +28,10 @@
               <span class="badge">Figma</span>
             </div>
           </div>
-        </div>
+        </NuxtLink>
 
         <!-- TALL: Helpdesk -->
-        <div class="card card-tall group" v-motion :initial="{opacity:0,x:20}" :visible-once="{opacity:1,x:0,transition:{duration:500,delay:160}}">
+        <NuxtLink to="/projects/helpdesk" class="card card-tall group" v-motion :initial="{opacity:0,x:20}" :visible-once="{opacity:1,x:0,transition:{duration:500,delay:160}}">
           <div class="card-actions">
             <a href="#" class="act-btn" @click.prevent>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -49,10 +49,10 @@
               <span class="badge">REST API</span>
             </div>
           </div>
-        </div>
+        </NuxtLink>
 
         <!-- NORMAL: Arsipku -->
-        <div class="card card-normal group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:240}}">
+        <NuxtLink to="/projects/arsipku" class="card card-normal group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:240}}">
           <div class="card-actions">
             <a href="#" class="act-btn" @click.prevent>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -70,10 +70,10 @@
               <span class="badge">REST API</span>
             </div>
           </div>
-        </div>
+        </NuxtLink>
 
         <!-- SQUARE LOGO: Wolio -->
-        <div class="card card-square group" v-motion :initial="{opacity:0,scale:0.9}" :visible-once="{opacity:1,scale:1,transition:{duration:500,delay:320}}">
+        <NuxtLink to="/projects/wolio" class="card card-square group" v-motion :initial="{opacity:0,scale:0.9}" :visible-once="{opacity:1,scale:1,transition:{duration:500,delay:320}}">
           <div class="logo-center">
             <span class="logo-emoji">📚</span>
           </div>
@@ -85,7 +85,7 @@
               <span class="badge">Firebase</span>
             </div>
           </div>
-        </div>
+        </NuxtLink>
 
       </div>
     </div>
