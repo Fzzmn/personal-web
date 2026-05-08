@@ -11,9 +11,9 @@
         <!-- WIDE: NavEvent -->
         <NuxtLink to="/projects/navevent" class="card card-wide group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:80}}">
           <div class="card-actions">
-            <a href="#" class="act-btn" @click.prevent>
+            <div class="act-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
+            </div>
           </div>
           <div class="mockup mockup-wide">
             <img src="/images/projects/naveven.png" alt="NavEvent" loading="lazy"/>
@@ -33,9 +33,9 @@
         <!-- TALL: Helpdesk -->
         <NuxtLink to="/projects/helpdesk" class="card card-tall group" v-motion :initial="{opacity:0,x:20}" :visible-once="{opacity:1,x:0,transition:{duration:500,delay:160}}">
           <div class="card-actions">
-            <a href="#" class="act-btn" @click.prevent>
+            <div class="act-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
+            </div>
           </div>
           <div class="mockup mockup-tall">
             <img src="/images/projects/helpdesk.png" alt="Helpdesk" loading="lazy"/>
@@ -54,9 +54,9 @@
         <!-- NORMAL: Arsipku -->
         <NuxtLink to="/projects/arsipku" class="card card-normal group" v-motion :initial="{opacity:0,y:20}" :visible-once="{opacity:1,y:0,transition:{duration:500,delay:240}}">
           <div class="card-actions">
-            <a href="#" class="act-btn" @click.prevent>
+            <div class="act-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
+            </div>
           </div>
           <div class="mockup mockup-normal">
             <img src="/images/projects/arsipku.png" alt="Arsipku" loading="lazy"/>
