@@ -129,6 +129,14 @@ const certifications: Certification[] = [
     image: '/images/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate.png',
     credentialUrl: 'https://www.credly.com/org/cisco/badge/ccnav7-switching-routing-and-wireless-essentials', // Placeholder
     bgColor: '#161B22'
+  },
+  {
+    title: 'Junior Web Programmer (BNSP Certified)',
+    issuer: 'National Professional Certification Agency',
+    date: 'March 2024',
+    description: 'Validated skills in web development including front-end and back-end fundamentals.',
+    tags: ['Web Development', 'Front-end', 'Back-end', 'BNSP'],
+    bgColor: '#111'
   }
 ]
 

@@ -54,27 +54,28 @@ const isVisible = ref(false)
 
 const skillGroups = [
   {
-    category: 'Frontend',
+    category: 'Frontend & Web',
     items: [
-      { name: 'Vue.js / Nuxt', level: 92 },
-      { name: 'React / Next.js', level: 85 },
-      { name: 'TypeScript', level: 88 },
-      { name: 'Tailwind CSS', level: 95 },
+      { name: 'Vue.js / Nuxt 3 / Next.js', level: 85 },
+      { name: 'JavaScript / TypeScript', level: 90 },
+      { name: 'HTML / Tailwind CSS', level: 90 },
     ],
   },
   {
-    category: 'Backend',
+    category: 'Mobile & Backend',
     items: [
-      { name: 'Node.js', level: 80 },
-      { name: 'PostgreSQL', level: 78 },
-      { name: 'Lua / FiveM', level: 90 },
+      { name: 'Flutter / Dart', level: 95 },
+      { name: 'RESTful API Integration', level: 90 },
+      { name: 'NestJS / Python', level: 75 },
+      { name: 'PostgreSQL / Prisma', level: 80 },
     ],
   },
   {
-    category: 'Tools',
+    category: 'Tools & Soft Skills',
     items: [
-      { name: 'Git & DevOps', level: 82 },
-      { name: 'Flutter / Dart', level: 75 },
+      { name: 'Git / Figma / Vercel', level: 85 },
+      { name: 'Problem Solving', level: 90 },
+      { name: 'Networking (CCNA)', level: 80 },
     ],
   },
 ]

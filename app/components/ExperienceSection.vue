@@ -164,25 +164,26 @@ interface Experience {
 const experiences: Experience[] = [
   {
     date: 'October 2025 - Present',
-    location: 'Jakarta, Indonesia',
-    role: 'IT Development - Enterprise Technology Planning & IT Operations',
+    location: 'Tangerang, Indonesia',
+    role: 'IT Developer - Enterprise Technology Planning & IT Operations',
     company: 'AirNav Indonesia',
-    tech: 'Flutter, REST API, Firebase, Clean Architecture',
+    tech: 'Flutter, RESTful API Integration, Figma, Clean Architecture',
     description: [
-      'Developed 3 mobile applications: NavEvent, Helpdesk Mobile, and Arsipku Mobile using Flutter, building reusable UI components to enhance design consistency and accelerate development time.',
-      'Implemented real-time communication and interaction features in the Helpdesk Mobile system, enabling rapid information exchange between users and administrators to improve service response.',
-      'Integrated REST API endpoints into mobile applications, handling complex logic such as user authentication, application state management, and role-based data processing (RBAC).',
-      'Contributed to end-to-end development of production-scale mobile applications, translating designs from Figma into responsive and functional interfaces focusing on clean architecture and maintainable code.',
+      'Contributed to the development of several internal mobile applications including NavEvent, Helpdesk Mobile, and New Arsipku Mobile using Flutter, while building reusable UI components to ensure consistent design and improve development efficiency.',
+      'Integrated RESTful APIs into mobile applications to support key features such as authentication, data management, and role-based access control.',
+      'Collaborated with the development team to transform Figma design prototypes into responsive and maintainable mobile interfaces while following clean architecture practices.',
     ],
   },
   {
     date: 'Oct 2023 - Nov 2023',
-    location: 'Bandung, West Java - Indonesia',
-    role: 'Web Developer Intern',
-    company: 'West Java Communication and Information Department (Diskominfo Jawa Barat)',
-    tech: 'Information Technology, Databases',
+    location: 'Bandung',
+    role: 'Web Development Intern',
+    company: 'Dinas Komunikasi Dan Informatika Provinsi Jawa Barat',
+    tech: 'Web Development, Database Management',
     description: [
-      'In this internship, I focused on assisting IT staff with daily operations and developed a data archiving application to streamline information management for the department.',
+      'Assisted the IT team in maintaining daily technical operations and supporting internal system needs within Diskominfo Jawa Barat.',
+      'Contributed to the development of a web-based digital archiving system to improve document management and organization.',
+      'Collaborated with team members to manage databases and implement features that enhance system efficiency and usability.',
     ],
   },
 ]

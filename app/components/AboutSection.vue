@@ -28,7 +28,7 @@
             <LetterReveal text="Experienced as" :delay="START" :stagger="25" />
           </p>
           <p class="font-mono text-base lg:text-lg font-bold text-term-text mb-6">
-            <LetterReveal text="Mobile-Focused Full-Stack Engineer" :delay="START" :stagger="15" />
+            <LetterReveal text="Mobile & Web Developer" :delay="START" :stagger="15" />
             <span class="cursor-blink-2 text-term-muted">|</span>
           </p>
 
@@ -121,10 +121,10 @@
             <!-- Currently undertaking an internship as -->
             <div>
               <p class="text-term-label font-mono text-xs mb-3">
-                <LetterReveal text="Currently undertaking an internship as" :delay="START" :stagger="18" />
+                <LetterReveal text="Currently working as" :delay="START" :stagger="18" />
               </p>
               <p class="font-mono text-sm font-bold text-term-text">
-                <LetterReveal text="IT Development Intern – Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
+                <LetterReveal text="IT Developer – Enterprise Technology Planning & IT Operations" :delay="START" :stagger="10" />
               </p>
             </div>
 
@@ -200,11 +200,11 @@ const START = 200
 const STAGGER = 8 // fast stagger for long paragraphs
 
 const descriptionLines = [
-  'I primarily focus on building modern mobile applications using Flutter, creating performant, well-structured, and maintainable apps designed for real-world use.',
-  'Alongside mobile development, I also work on web frontend development and backend integration, allowing me to build complete application flows from user interfaces to API communication.',
-  'Throughout my development journey, I have worked on multiple application projects — designing mobile interfaces, integrating REST APIs, and contributing to both frontend and backend systems. These experiences helped me develop a strong understanding of application architecture, performance optimization, and scalable system design.',
-  'While my main expertise lies in mobile development with Flutter, I also actively build web interfaces and collaborate with backend services to deliver complete and reliable digital products.',
-  'I value clarity, structured code, and long-term maintainability in every system I build.',
+  'Engineering graduate with a strong interest in mobile and web development.',
+  'Experienced in building cross-platform mobile applications using Flutter, including developing internal systems during my professional experience at AirNav Indonesia.',
+  'Familiar with integrating RESTful APIs, implementing user interfaces from design prototypes, and maintaining application performance.',
+  'Also experienced in web development through internship projects, contributing to system development and database management.',
+  'A detail-oriented individual with good problem-solving skills, able to work effectively in a team, and committed to continuous learning in software development.',
 ]
 
 // Cumulative delay helper

@@ -122,9 +122,9 @@ onUnmounted(() => {
 })
 
 const greetingLines = [
-  'I build structured, performant mobile & web applications with Flutter.',
+  'Engineering graduate with a strong interest in mobile and web development.',
+  'Experienced in building cross-platform mobile applications using Flutter.',
   'Currently focused on enterprise-grade systems and scalable application architecture.',
-  'From clean interfaces to production-ready mobile solutions.',
 ]
 
 const statusLines = [
