@@ -30,7 +30,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#0a0f1a' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAegPCtQAAAAASUVORK5CYII=' }
+        { rel: 'icon', type: 'image/png', href: '/images/icon/icon.png' }
       ],
       htmlAttrs: {
         lang: 'en',
