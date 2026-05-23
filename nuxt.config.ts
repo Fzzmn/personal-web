@@ -22,12 +22,15 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Fauzi M — Developer',
+      title: 'FauziM',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'I engineer structured web systems with React and Next.js, and build real-time server infrastructure.' },
         { name: 'theme-color', content: '#0a0f1a' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAegPCtQAAAAASUVORK5CYII=' }
       ],
       htmlAttrs: {
         lang: 'en',

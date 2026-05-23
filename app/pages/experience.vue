@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-useHead({ title: 'Experience — Fauzi M' })
+useHead({ title: 'Experience — FauziM' })
 </script>
