@@ -122,13 +122,14 @@ onUnmounted(() => {
 })
 
 const greetingLines = [
-  'Engineering graduate with a strong interest in mobile and web development.',
-  'Experienced in building cross-platform mobile applications using Flutter.',
-  'Currently focused on enterprise-grade systems and scalable application architecture.',
+  'Informatics Engineering graduate with hands-on experience in mobile and web application development through enterprise and government-related projects.',
+  'Experienced in developing cross-platform mobile applications using Flutter, integrating RESTful APIs, and building scalable and maintainable applications.',
+  'Also experienced in web development, database management, and technical support through internship projects.',
 ]
 
 const statusLines = [
-  'Open for remote work worldwide — full-time, contract, or freelance.',
+  'Open to opportunities — Full-time, contract, or freelance.',
+  'Available for new opportunities.',
 ]
 
 // Line N starts after all chars of lines 0..N-1 have appeared

@@ -23,14 +23,14 @@
         :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 + gIndex * 150 } }"
         class="flex gap-8 mb-8"
       >
-        <span class="text-term-label font-mono text-sm shrink-0 pt-0.5 w-24">{{ group.category }}.</span>
+        <span class="text-term-label font-mono text-sm shrink-0 pt-0.5 w-36">{{ group.category }}.</span>
         <div class="font-mono text-sm space-y-2 flex-1">
           <div
             v-for="skill in group.items"
             :key="skill.name"
             class="flex items-center gap-4"
           >
-            <span class="text-term-text w-36 shrink-0">{{ skill.name }}</span>
+            <span class="text-term-text w-44 shrink-0">{{ skill.name }}</span>
             <!-- Terminal-style progress bar -->
             <div class="flex-1 flex items-center gap-2">
               <div class="flex-1 h-1 bg-base-border rounded-full overflow-hidden">
@@ -54,28 +54,52 @@ const isVisible = ref(false)
 
 const skillGroups = [
   {
-    category: 'Frontend & Web',
+    category: 'Programming & Dev',
     items: [
-      { name: 'Vue.js / Nuxt 3 / Next.js', level: 85 },
-      { name: 'JavaScript / TypeScript', level: 90 },
-      { name: 'HTML / Tailwind CSS', level: 90 },
+      { name: 'Flutter & Dart', level: 95 },
+      { name: 'JavaScript & TypeScript', level: 90 },
+      { name: 'Python', level: 80 },
+      { name: 'HTML', level: 90 },
     ],
   },
   {
-    category: 'Mobile & Backend',
+    category: 'Mobile',
     items: [
-      { name: 'Flutter / Dart', level: 95 },
-      { name: 'RESTful API Integration', level: 90 },
-      { name: 'NestJS / Python', level: 75 },
-      { name: 'PostgreSQL / Prisma', level: 80 },
+      { name: 'Flutter', level: 95 },
+      { name: 'Android & iOS', level: 85 },
+      { name: 'GetX / State Mgmt', level: 90 },
+      { name: 'RESTful API', level: 92 },
     ],
   },
   {
-    category: 'Tools & Soft Skills',
+    category: 'Web',
     items: [
-      { name: 'Git / Figma / Vercel', level: 85 },
-      { name: 'Problem Solving', level: 90 },
-      { name: 'Networking (CCNA)', level: 80 },
+      { name: 'Nuxt 3 & Vue.js', level: 90 },
+      { name: 'Next.js', level: 85 },
+      { name: 'Tailwind CSS', level: 90 },
+    ],
+  },
+  {
+    category: 'Backend',
+    items: [
+      { name: 'NestJS', level: 80 },
+      { name: 'REST API', level: 90 },
+    ],
+  },
+  {
+    category: 'Database',
+    items: [
+      { name: 'PostgreSQL', level: 85 },
+      { name: 'Prisma ORM', level: 85 },
+    ],
+  },
+  {
+    category: 'Tools',
+    items: [
+      { name: 'Git & GitHub', level: 90 },
+      { name: 'Postman & Vercel', level: 88 },
+      { name: 'Figma & VS Code', level: 90 },
+      { name: 'Discord', level: 85 },
     ],
   },
 ]

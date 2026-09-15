@@ -163,9 +163,9 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    date: 'October 2025 - Present',
+    date: 'October 2025 – April 2026',
     location: 'Tangerang, Indonesia',
-    role: 'IT Developer - Enterprise Technology Planning & IT Operations',
+    role: 'IT Developer Intern - Enterprise Technology Planning & IT Operations',
     company: 'AirNav Indonesia',
     tech: 'Flutter, RESTful API Integration, Figma, Clean Architecture',
     description: [
