@@ -135,8 +135,7 @@ const projectsData: Record<string, any> = {
     title: 'Wolio Learning',
     subtitle: 'Digital learning platform — university capstone project',
     link: '#',
-    // Using a placeholder or fallback if wolio doesn't have a specific large mockup image yet
-    image: '/images/projects/naveven.png', // Replace with actual wolio image if exists
+    image: '/images/projects/wolio.png',
     overview: 'Wolio Learning is a digital educational platform developed as my university capstone project. It facilitates online course delivery, student progress tracking, and interactive learning modules.',
     challenge: 'Designing a fully functional learning management system (LMS) from scratch, ensuring real-time data synchronization for quizzes and progress tracking.',
     tasks: [
