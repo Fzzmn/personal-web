@@ -12,7 +12,7 @@
       <div v-if="project" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
         
         <!-- Left Column: Content -->
-        <div class="lg:col-span-5 space-y-10">
+        <div :class="project.image ? 'lg:col-span-5 space-y-10' : 'lg:col-span-8 max-w-3xl space-y-10'">
           
           <!-- Header -->
           <div>
@@ -59,8 +59,8 @@
 
         </div>
 
-        <!-- Right Column: Mockup Image -->
-        <div class="lg:col-span-7">
+        <!-- Right Column: Mockup Image (Optional) -->
+        <div v-if="project.image" class="lg:col-span-7">
           <div class="sticky top-28 bg-base-card rounded-2xl border border-base-border overflow-hidden shadow-2xl p-2 lg:p-4">
              <img :src="project.image" :alt="project.title" class="w-full h-auto rounded-xl border border-base-border/50" />
           </div>
@@ -135,7 +135,6 @@ const projectsData: Record<string, any> = {
     title: 'Wolio Learning',
     subtitle: 'Digital learning platform — university capstone project',
     link: '#',
-    image: '/images/projects/wolio.png',
     overview: 'Wolio Learning is a digital educational platform developed as my university capstone project. It facilitates online course delivery, student progress tracking, and interactive learning modules.',
     challenge: 'Designing a fully functional learning management system (LMS) from scratch, ensuring real-time data synchronization for quizzes and progress tracking.',
     tasks: [
