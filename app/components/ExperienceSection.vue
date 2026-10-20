@@ -1,18 +1,21 @@
 <template>
   <!--
-    ExperienceSection — Timeline-style experience layout
-    Left: date & location, Center: timeline dot/line, Right: role details + description
+    ExperienceSection — Clean, compact timeline layout
+    Left: Date & Location (right-aligned, small)
+    Center: Dot & vertical line
+    Right: Exactly 3 lines (Role [bold], Company [medium], Tech stack [muted])
+    Header without cursor trailing.
   -->
   <section id="experience" class="py-24 px-6 lg:px-0">
     <div class="max-w-3xl mx-auto w-full">
-      <!-- Section Header -->
+      <!-- Section Header: No cursor trailing -->
       <h2
         v-motion
-        :initial="{ opacity: 0, y: 20 }"
-        :visible-once="{ opacity: 1, y: 0, transition: { duration: 500 } }"
-        class="text-xl lg:text-2xl font-mono font-bold text-term-text mb-14 text-center"
+        :initial="{ opacity: 0, y: 16 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+        class="text-xl lg:text-2xl font-mono font-bold text-term-text mb-12 text-center"
       >
-        Experiences<span class="text-term-muted animate-pulse">_</span>
+        <TextScramble text="Experiences" :duration="600" />
       </h2>
 
       <!-- Timeline -->
@@ -29,23 +32,31 @@
           <div 
             class="timeline-left"
             v-motion
-            :initial="{ opacity: 0, x: -30 }"
-            :visible-once="{ opacity: 1, x: 0, transition: { duration: 600, ease: 'easeOut', delay: 100 } }"
+            :initial="{ opacity: 0, x: -20 }"
+            :visible-once="{ opacity: 1, x: 0, transition: { duration: 500, ease: 'easeOut', delay: 80 } }"
           >
-            <p class="font-mono text-sm text-term-text transition-colors duration-300" :class="{'text-[#4dc9b0]': activeItems.has(index)}">{{ exp.date }}</p>
-            <p class="font-mono text-xs text-term-muted">{{ exp.location }}</p>
+            <p
+              class="font-mono text-xs sm:text-sm text-term-text transition-colors duration-300 font-medium"
+              :class="{'text-term-label': activeItems.has(index)}"
+            >
+              <TextScramble :text="exp.date" :duration="500" />
+            </p>
+            <p class="font-mono text-[11px] sm:text-xs text-term-muted mt-0.5">
+              <TextScramble :text="exp.location" :duration="550" />
+            </p>
           </div>
 
           <!-- Center: Dot & Line -->
           <div class="timeline-center relative flex flex-col items-center flex-shrink-0 w-5">
             <!-- Global Line segments -->
-            <div class="absolute w-[1px] bg-[#2a3f55] left-1/2 -translate-x-1/2 z-0"
-                 :class="{
-                    'top-[-48px]': index === 0,
-                    'top-0': index !== 0,
-                    'bottom-[-36px]': index === visibleExperiences.length - 1,
-                    'bottom-0': index !== visibleExperiences.length - 1
-                 }"
+            <div
+              class="absolute w-[1px] bg-base-border left-1/2 -translate-x-1/2 z-0"
+              :class="{
+                'top-[-40px]': index === 0,
+                'top-0': index !== 0,
+                'bottom-[-30px]': index === visibleExperiences.length - 1,
+                'bottom-0': index !== visibleExperiences.length - 1
+              }"
             />
             
             <!-- Dot -->
@@ -53,93 +64,63 @@
               class="timeline-dot-wrapper relative z-10"
               v-motion
               :initial="{ scale: 0, opacity: 0 }"
-              :visible-once="{ scale: 1, opacity: 1, transition: { duration: 400, delay: 200 } }"
+              :visible-once="{ scale: 1, opacity: 1, transition: { duration: 350, delay: 150 } }"
             >
               <div 
-                class="w-[8px] h-[8px] rounded-full transition-colors duration-500 ease-out ring-[6px] ring-[#0a0f1a]"
+                class="w-[8px] h-[8px] rounded-full transition-colors duration-500 ease-out ring-[5px] ring-base-bg"
                 :class="{ 
-                  'bg-[#4dc9b0]': activeItems.has(index),
-                  'bg-[#6b7f94]': !activeItems.has(index)
+                  'bg-term-label': activeItems.has(index),
+                  'bg-term-muted': !activeItems.has(index)
                 }" 
               />
             </div>
           </div>
 
-          <!-- Right: Role Details -->
+          <!-- Right: Role Details (Only 3 lines: Role, Company, Tech) -->
           <div class="timeline-right">
             <div 
               class="content-card"
               v-motion
-              :initial="{ opacity: 0, x: 30 }"
-              :visible-once="{ opacity: 1, x: 0, transition: { duration: 600, ease: 'easeOut', delay: 150 } }"
+              :initial="{ opacity: 0, x: 20 }"
+              :visible-once="{ opacity: 1, x: 0, transition: { duration: 500, ease: 'easeOut', delay: 100 } }"
             >
+              <!-- Line 1: Role / Posisi (Bold) -->
               <h3 
-                class="font-mono text-sm font-bold text-term-text transition-colors duration-300"
-                :class="{'text-[#4dc9b0]': activeItems.has(index)}"
-                v-motion
-                :initial="{ opacity: 0, y: 10 }"
-                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 300 } }"
+                class="font-mono text-sm sm:text-base font-bold text-term-text transition-colors duration-300"
+                :class="{'text-term-label': activeItems.has(index)}"
               >
-                {{ exp.role }}
+                <TextScramble :text="exp.role" :duration="600" />
               </h3>
               
-              <p 
-                class="font-mono text-xs text-term-muted"
-                v-motion
-                :initial="{ opacity: 0, y: 10 }"
-                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 400 } }"
-              >
-                {{ exp.company }}
+              <!-- Line 2: Nama Perusahaan / Instansi (Medium) -->
+              <p class="font-mono text-xs sm:text-sm text-term-text/80 mt-0.5">
+                <TextScramble :text="exp.company" :duration="650" />
               </p>
               
-              <p 
-                class="font-mono text-xs text-term-label mt-1"
-                v-motion
-                :initial="{ opacity: 0, y: 10 }"
-                :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 500 } }"
-              >
-                {{ exp.tech }}
+              <!-- Line 3: Tech Stack terpisah koma (Small, muted) -->
+              <p class="font-mono text-[11px] sm:text-xs text-term-muted mt-1 leading-snug">
+                <TextScramble :text="exp.tech" :duration="700" />
               </p>
-              
-              <!-- Description bullets -->
-              <ul v-if="exp.description?.length" class="mt-2 space-y-1">
-                <li
-                  v-for="(desc, dIdx) in exp.description"
-                  :key="dIdx"
-                  class="font-mono text-xs text-term-muted leading-relaxed flex gap-1.5"
-                  v-motion
-                  :initial="{ opacity: 0, x: 10 }"
-                  :visible-once="{ opacity: 1, x: 0, transition: { duration: 400, delay: 600 + (dIdx * 100) } }"
-                >
-                  <span class="text-term-dot-green shrink-0 mt-0.5" :class="{'animate-pulse': activeItems.has(index)}">▸</span>
-                  <span>{{ desc }}</span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- See Others Button -->
+      <!-- See Others Button if needed -->
       <div
         v-if="!showAll && experiences.length > initialCount"
-        v-motion
-        :initial="{ opacity: 0 }"
-        :visible-once="{ opacity: 1, transition: { duration: 500, delay: 600 } }"
         class="flex flex-col items-center mt-6 relative z-10"
       >
         <button
           class="flex flex-col items-center gap-1 transition-colors duration-300 group"
           @click="showAll = true"
         >
-          <!-- Chevron Down Icon -->
-          <div class="w-8 h-8 rounded-full bg-[#2a3f55] flex items-center justify-center text-[#c8d6e5] group-hover:bg-[#4dc9b0] group-hover:text-[#0a0f1a] transition-all ring-4 ring-[#0a0f1a]">
-            <!-- Double Chevron -->
+          <div class="w-8 h-8 rounded-full bg-base-border flex items-center justify-center text-term-text group-hover:bg-term-label group-hover:text-base-bg transition-all ring-4 ring-base-bg">
             <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 13l5 5 5-5M7 6l5 5 5-5" />
             </svg>
           </div>
-          <span class="font-mono text-sm text-[#6b7f94] group-hover:text-[#4dc9b0] mt-1">See Others</span>
+          <span class="font-mono text-xs text-term-muted group-hover:text-term-label mt-1">See Others</span>
         </button>
       </div>
     </div>
@@ -148,6 +129,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import TextScramble from './TextScramble.vue'
 
 const showAll = ref(false)
 const initialCount = 5
@@ -158,7 +140,6 @@ interface Experience {
   role: string
   company: string
   tech: string
-  description?: string[]
 }
 
 const experiences: Experience[] = [
@@ -168,23 +149,13 @@ const experiences: Experience[] = [
     role: 'IT Developer Intern - Enterprise Technology Planning & IT Operations',
     company: 'AirNav Indonesia',
     tech: 'Flutter, RESTful API Integration, Figma, Clean Architecture',
-    description: [
-      'Contributed to the development of several internal mobile applications including NavEvent, Helpdesk Mobile, and New Arsipku Mobile using Flutter, while building reusable UI components to ensure consistent design and improve development efficiency.',
-      'Integrated RESTful APIs into mobile applications to support key features such as authentication, data management, and role-based access control.',
-      'Collaborated with the development team to transform Figma design prototypes into responsive and maintainable mobile interfaces while following clean architecture practices.',
-    ],
   },
   {
-    date: 'Oct 2023 - Nov 2023',
-    location: 'Bandung',
+    date: 'Oct 2023 – Nov 2023',
+    location: 'Bandung, Indonesia',
     role: 'Web Development Intern',
     company: 'Dinas Komunikasi Dan Informatika Provinsi Jawa Barat',
-    tech: 'Web Development, Database Management',
-    description: [
-      'Assisted the IT team in maintaining daily technical operations and supporting internal system needs within Diskominfo Jawa Barat.',
-      'Contributed to the development of a web-based digital archiving system to improve document management and organization.',
-      'Collaborated with team members to manage databases and implement features that enhance system efficiency and usability.',
-    ],
+    tech: 'Web Development, Database Management, Technical Support',
   },
 ]
 
@@ -201,7 +172,6 @@ onMounted(() => {
     entries.forEach(entry => {
       const index = Number(entry.target.getAttribute('data-index'))
       if (entry.isIntersecting) {
-        // Create a new set to ensure reactivity in Vue
         const newSet = new Set(activeItems.value)
         newSet.add(index)
         activeItems.value = newSet
@@ -241,15 +211,15 @@ onUnmounted(() => {
 <style scoped>
 .timeline-item {
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 0;
-  min-height: 80px;
+  padding-bottom: 24px;
   width: 100%;
   max-width: 720px;
 }
 
 .timeline-left {
-  width: 45%;
+  width: 44%;
   text-align: right;
   padding-right: 20px;
   padding-top: 2px;
@@ -268,56 +238,36 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6px;
+  margin-top: 5px;
   width: 14px;
   height: 14px;
 }
 
-.timeline-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-
-
 .timeline-right {
-  width: 55%;
+  width: 56%;
   padding-left: 20px;
-  padding-bottom: 28px;
   flex-shrink: 0;
 }
 
-/* Hover Content Card */
 .content-card {
-  padding: 16px;
-  margin-top: -16px;
-  margin-left: -16px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  padding: 10px 14px;
+  margin-top: -6px;
+  margin-left: -12px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
   border: 1px solid transparent;
 }
 
 .content-card:hover {
-  transform: scale(1.02);
+  transform: translateX(4px);
   background-color: rgba(255, 255, 255, 0.02);
   border-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
-/* Mobile responsive */
 @media (max-width: 640px) {
   .timeline-left {
-    width: 130px;
+    width: 120px;
     padding-right: 12px;
-  }
-
-  .timeline-left p:first-child {
-    font-size: 0.7rem;
-  }
-
-  .timeline-left p:last-child {
-    font-size: 0.6rem;
   }
 
   .timeline-right {
@@ -327,9 +277,9 @@ onUnmounted(() => {
   }
   
   .content-card {
-    padding: 12px;
-    margin-top: -12px;
-    margin-left: -8px; 
+    padding: 8px 10px;
+    margin-top: -4px;
+    margin-left: -6px; 
   }
 }
 </style>

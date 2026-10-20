@@ -4,10 +4,10 @@
       <!-- Section Header -->
       <div class="mb-16 text-center">
         <h1 class="text-2xl lg:text-3xl font-mono font-bold text-term-text mb-4">
-          Featured Certifications<span class="text-term-muted animate-pulse">_</span>
+          <TextScramble text="Featured Certifications" :duration="650" />
         </h1>
         <p class="text-sm font-mono text-term-muted max-w-2xl mx-auto">
-          A selection of professional recognitions and academic achievements I've earned throughout my journey.
+          <TextScramble text="A selection of professional recognitions and academic achievements I've earned throughout my journey." :duration="750" />
         </p>
       </div>
 
@@ -37,7 +37,9 @@
           <!-- Minimal Content -->
           <div class="cert-content">
             <span class="cert-badge">CERTIFICATION</span>
-            <h3 class="cert-title-minimal">{{ cert.title }}</h3>
+            <h3 class="cert-title-minimal">
+              <TextScramble :text="cert.title" :duration="600" />
+            </h3>
           </div>
         </div>
       </div>
@@ -97,6 +99,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import TextScramble from './TextScramble.vue'
 
 interface Certification {
   title: string
@@ -185,20 +188,21 @@ onUnmounted(() => {
 .cert-card {
   display: flex;
   flex-direction: column;
-  background-color: #0d0d0d;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: #111827;
+  border-radius: 1rem;
+  border: 1px solid rgba(42, 63, 85, 0.7);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
   cursor: pointer;
   height: 100%;
 }
 
 .cert-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(77, 201, 176, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(77, 201, 176, 0.1);
-  background-color: #111;
+  transform: translateY(-4px);
+  border-color: rgba(77, 201, 176, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(77, 201, 176, 0.15);
 }
 
 /* ── Image Area ── */

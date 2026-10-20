@@ -144,6 +144,20 @@ const projectsData: Record<string, any> = {
       'Implemented a role-based access control system for students and instructors.'
     ],
     result: 'Successfully defended the capstone project with a fully functional prototype of a modern learning management system.'
+  },
+  archive: {
+    title: 'Diskominfo Archive',
+    subtitle: 'Web-based digital archiving system for government administration',
+    link: '#',
+    overview: 'A web-based digital archiving solution developed during internship at Diskominfo Jawa Barat to organize, index, and securely store official institutional correspondence.',
+    challenge: 'Designing a responsive and intuitive document categorization system with permission-based access and rapid search capabilities.',
+    tasks: [
+      'Engineered backend database schemas for structured document indexing.',
+      'Developed responsive user interfaces for document upload and retrieval.',
+      'Implemented role-based access controls for internal government staff.',
+      'Optimized search query performance for large archives.'
+    ],
+    result: 'Streamlined the digital archiving process and improved document retrieval speed across departmental divisions.'
   }
 }
 

@@ -3,20 +3,21 @@
     ContactSection — Two-column layout
     Left: Social media cards grid (2x3)
     Right: Contact form + email copy
+    Both columns aligned at the top and bottom on desktop
   -->
   <section id="contact" class="min-h-screen flex flex-col justify-center py-24 px-6 lg:px-8">
     <div class="max-w-5xl mx-auto w-full">
-      <div class="contact-grid">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
 
-        <!-- Left: Social Cards Grid -->
-        <div>
-          <div class="grid grid-cols-2 gap-3">
+        <!-- Left: Social Cards Grid (2 cols x 3 rows, matches right side height) -->
+        <div class="lg:col-span-5 flex flex-col">
+          <div class="grid grid-cols-2 grid-rows-3 gap-3 h-full">
             <a
               v-for="(social, index) in socialLinks"
               :key="social.name"
               v-motion
-              :initial="{ opacity: 0, y: 16 }"
-              :visible-once="{ opacity: 1, y: 0, transition: { duration: 350, delay: 80 + index * 60 } }"
+              :initial="{ opacity: 0, y: 14 }"
+              :visible-once="{ opacity: 1, y: 0, transition: { duration: 350, delay: 60 + index * 50 } }"
               :href="social.url"
               target="_blank"
               rel="noopener noreferrer"
@@ -28,7 +29,7 @@
               </div>
 
               <!-- Arrow (top-right) -->
-              <div class="absolute top-3 right-3">
+              <div class="absolute top-3.5 right-3.5">
                 <svg
                   class="w-3.5 h-3.5 text-term-muted group-hover:text-term-label group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300"
                   fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
@@ -38,24 +39,27 @@
               </div>
 
               <!-- Name (bottom-left) -->
-              <span class="absolute bottom-3 left-3 font-mono text-xs text-term-text group-hover:text-term-label transition-colors duration-300">
-                {{ social.name }}
+              <span class="font-mono text-xs text-term-text group-hover:text-term-label transition-colors duration-300 mt-auto pt-4">
+                <TextScramble :text="social.name" :duration="500" />
               </span>
             </a>
           </div>
         </div>
 
-        <!-- Right: Contact Form + Email -->
+        <!-- Right: Contact Form + Email (aligned top and bottom with left column) -->
         <div
           v-motion
           :initial="{ opacity: 0, x: 16 }"
-          :visible-once="{ opacity: 1, x: 0, transition: { duration: 450, delay: 250 } }"
+          :visible-once="{ opacity: 1, x: 0, transition: { duration: 450, delay: 200 } }"
+          class="lg:col-span-7 flex flex-col justify-between"
         >
           <!-- Form Card -->
-          <div class="form-card rounded-xl p-5 mb-3">
-            <h3 class="font-mono text-xs text-term-muted mb-4">Drop me a message:</h3>
+          <div class="form-card rounded-xl p-5 mb-3 flex-1 flex flex-col justify-between">
+            <h3 class="font-mono text-xs text-term-muted mb-3">
+              <TextScramble text="Drop me a message:" :duration="500" />
+            </h3>
 
-            <form class="space-y-2.5" @submit.prevent="handleSubmit">
+            <form class="space-y-2.5 flex-1 flex flex-col justify-between" @submit.prevent="handleSubmit">
               <input
                 id="c-name"
                 v-model="form.name"
@@ -80,15 +84,15 @@
               <textarea
                 id="c-message"
                 v-model="form.message"
-                rows="5"
+                rows="4"
                 placeholder="Your message.."
-                class="form-input resize-none"
+                class="form-input resize-none flex-1 min-h-[90px]"
               />
               <button
                 type="submit"
                 class="w-full py-2.5 rounded-lg bg-base-nav font-mono text-xs text-term-text
                        hover:bg-base-nav-active hover:text-term-label
-                       transition-all duration-300"
+                       transition-all duration-300 cursor-pointer"
               >
                 Submit
               </button>
@@ -97,7 +101,9 @@
 
           <!-- Email Section -->
           <div>
-            <p class="font-mono text-xs text-term-muted mb-2">or email me at:</p>
+            <p class="font-mono text-xs text-term-muted mb-1.5">
+              <TextScramble text="or email me at:" :duration="450" />
+            </p>
             <button
               class="email-copy-btn group w-full"
               @click="copyEmail"
@@ -132,6 +138,9 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, ref } from 'vue'
+import TextScramble from './TextScramble.vue'
+
 const form = reactive({
   name: '',
   email: '',
@@ -200,29 +209,15 @@ const socialLinks = [
 </script>
 
 <style scoped>
-/* Two-column grid */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-@media (min-width: 1024px) {
-  .contact-grid {
-    grid-template-columns: 2fr 3fr;
-    gap: 2rem;
-  }
-}
-
 /* Social Media Card */
 .social-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  min-height: 160px;
-  border-radius: 14px;
+  justify-content: space-between;
+  padding: 14px;
+  min-height: 110px;
+  border-radius: 12px;
   background: rgba(10, 15, 26, 0.5);
   backdrop-filter: blur(12px) saturate(1.4);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
@@ -240,8 +235,8 @@ const socialLinks = [
 
 /* Social Icon */
 .social-icon-wrapper {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 1px solid #2a3f55;
   display: flex;
