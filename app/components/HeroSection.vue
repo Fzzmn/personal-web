@@ -4,8 +4,8 @@
     All other texts appear simultaneously with Text Scramble (ASCII decode)
   -->
   <section id="home" class="relative flex-1 min-h-[calc(100vh-80px)] flex flex-col justify-center px-6 lg:px-0">
-    <!-- Terminal Dots Grid: 6 dots in 2x3 arrangement at top-left, aligned with navbar -->
-    <div class="fixed left-6 lg:left-10 top-7 lg:top-8 z-40 pointer-events-none">
+    <!-- Terminal Dots Grid: 6 dots in 2x3 arrangement at top-left, aligned with navbar (hidden on mobile to prevent navbar collision) -->
+    <div class="hidden sm:block fixed left-6 lg:left-10 top-7 lg:top-8 z-40 pointer-events-none">
       <div class="grid grid-cols-3 gap-2 w-fit">
         <div class="w-2.5 h-2.5 rounded-full bg-term-dot-green opacity-80" />
         <div class="w-2.5 h-2.5 rounded-full bg-term-dot-green opacity-80" />
@@ -17,16 +17,16 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-2xl mx-auto w-full pt-28">
+    <div class="max-w-2xl mx-auto w-full pt-24 sm:pt-28">
       <!-- Greeting Title: Looping typewriter with vertical blinking cursor '|' -->
-      <h1 class="text-2xl lg:text-3xl font-mono font-bold text-term-text mb-12">
+      <h1 class="text-2xl sm:text-3xl font-mono font-bold text-term-text mb-8 sm:mb-12">
         <span class="typewriter-text">{{ displayedText }}</span>
         <span class="cursor-blink text-term-muted">|</span>
       </h1>
 
-      <!-- Greetings -->
-      <div class="flex gap-8 mb-8">
-        <span class="text-term-label font-mono text-sm shrink-0 pt-0.5">
+      <!-- Greetings: Stack on mobile, side-by-side on sm+ -->
+      <div class="flex flex-col sm:flex-row gap-1.5 sm:gap-8 mb-6 sm:mb-8">
+        <span class="text-term-label font-mono text-xs sm:text-sm shrink-0 pt-0.5">
           <TextScramble text="Greetings." :duration="650" />
         </span>
         <div class="font-mono text-sm text-term-text leading-relaxed space-y-2">
@@ -36,9 +36,9 @@
         </div>
       </div>
 
-      <!-- Status -->
-      <div class="flex gap-8 mb-10">
-        <span class="text-term-label font-mono text-sm shrink-0 pt-0.5">
+      <!-- Status: Stack on mobile, side-by-side on sm+ -->
+      <div class="flex flex-col sm:flex-row gap-1.5 sm:gap-8 mb-8 sm:mb-10">
+        <span class="text-term-label font-mono text-xs sm:text-sm shrink-0 pt-0.5">
           <TextScramble text="Status." :duration="650" />
         </span>
         <div class="font-mono text-sm text-term-text leading-relaxed space-y-2">

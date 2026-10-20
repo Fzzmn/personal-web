@@ -6,105 +6,41 @@
   -->
   <section id="about" class="pt-24 pb-16 px-6 lg:px-0">
     <div class="max-w-5xl mx-auto w-full">
-      <!-- Two Column Layout -->
-      <div class="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
+      <!-- Section Header -->
+      <div class="mb-6 sm:mb-8">
+        <!-- Section Label -->
+        <p class="text-term-label font-mono text-xs sm:text-sm mb-1.5">
+          <TextScramble text="About" :duration="500" />
+        </p>
 
-        <!-- Left Column -->
-        <div class="flex-1 min-w-0">
-          <!-- Section Label -->
-          <p class="text-term-label font-mono text-sm mb-1.5">
-            <TextScramble text="About" :duration="500" />
-          </p>
+        <!-- Name: Clean without cursor -->
+        <h2 class="text-2xl sm:text-3xl font-mono font-bold text-term-text mb-4 sm:mb-6">
+          <TextScramble text="Fauziman" :duration="600" />
+        </h2>
 
-          <!-- Name: Clean without cursor -->
-          <h2 class="text-2xl lg:text-3xl font-mono font-bold text-term-text mb-6">
-            <TextScramble text="Fauziman" :duration="600" />
-          </h2>
+        <!-- Experienced As -->
+        <p class="text-term-label font-mono text-xs mb-1">
+          <TextScramble text="Experienced as" :duration="550" />
+        </p>
+        <p class="font-mono text-base sm:text-lg font-bold text-term-text flex items-center">
+          <TextScramble text="Mobile & Web Developer" :duration="700" />
+          <span class="cursor-blink text-term-muted ml-0.5">|</span>
+        </p>
+      </div>
 
-          <!-- Experienced As -->
-          <p class="text-term-label font-mono text-xs mb-1">
-            <TextScramble text="Experienced as" :duration="550" />
-          </p>
-          <p class="font-mono text-base lg:text-lg font-bold text-term-text mb-6 flex items-center">
-            <TextScramble text="Mobile & Web Developer" :duration="700" />
-            <span class="cursor-blink text-term-muted ml-0.5">|</span>
-          </p>
+      <!-- Two Column Layout: On mobile, Right Column (Photo & Quick Info) is displayed first, then Bio & Contributions -->
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-14 items-start">
 
-          <!-- Description Paragraphs -->
-          <div class="font-mono text-sm text-term-text leading-relaxed space-y-3.5 mb-8">
-            <p v-for="(line, i) in descriptionLines" :key="i">
-              <TextScramble
-                :text="line"
-                :duration="750"
-              />
-            </p>
-          </div>
-
-          <!-- My Contributions -->
-          <div
-            v-motion
-            :initial="{ opacity: 0 }"
-            :enter="{ opacity: 1, transition: { duration: 600, delay: 300 } }"
-          >
-            <p class="text-term-label font-mono text-sm mb-3">
-              <TextScramble text="My contributions" :duration="600" />
-            </p>
-
-            <!-- GitHub Contribution Graph -->
-            <div class="mb-4">
-              <p class="font-mono text-sm font-bold text-term-text mb-2.5">
-                <TextScramble text="GitHub" :duration="550" />
-              </p>
-              <div class="bg-base-card rounded-xl p-4 border border-base-border overflow-x-auto shadow-md">
-                <!-- Month Labels -->
-                <div class="flex gap-[3px] mb-2 pl-1">
-                  <div v-for="month in monthLabels" :key="month.key" :style="{ width: month.width + 'px' }" class="font-mono text-[10px] text-term-muted">
-                    {{ month.name }}
-                  </div>
-                </div>
-                <!-- GitHub Contribution Grid -->
-                <div class="contribution-grid">
-                  <div
-                    v-for="(week, wIndex) in githubContributions"
-                    :key="'gh-w-' + wIndex"
-                    class="contribution-column"
-                  >
-                    <div
-                      v-for="(day, dIndex) in week"
-                      :key="'gh-d-' + dIndex"
-                      class="contribution-cell"
-                      :class="getContributionClass(day.level)"
-                      :title="`${day.count} contributions on ${day.date}`"
-                    />
-                  </div>
-                </div>
-                <div class="flex justify-between items-center mt-3">
-                  <span class="font-mono text-xs text-term-muted">{{ totalGithubContribs }} contributions in the last year</span>
-                  <div class="flex items-center gap-1">
-                    <span class="font-mono text-xs text-term-muted">Less</span>
-                    <div class="contribution-cell level-NONE" />
-                    <div class="contribution-cell level-FIRST_QUARTILE" />
-                    <div class="contribution-cell level-SECOND_QUARTILE" />
-                    <div class="contribution-cell level-THIRD_QUARTILE" />
-                    <div class="contribution-cell level-FOURTH_QUARTILE" />
-                    <span class="font-mono text-xs text-term-muted">More</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column -->
+        <!-- Right Column (Photo & Info): Order 1 on mobile, Order 2 on desktop -->
         <div
           v-motion
-          :initial="{ opacity: 0, x: 20 }"
-          :enter="{ opacity: 1, x: 0, transition: { duration: 500, delay: 200 } }"
-          class="w-full lg:w-64 xl:w-72 shrink-0 flex flex-col"
+          :initial="{ opacity: 0, y: 16 }"
+          :enter="{ opacity: 1, y: 0, transition: { duration: 500, delay: 150 } }"
+          class="w-full lg:w-64 xl:w-72 shrink-0 flex flex-col order-1 lg:order-2"
         >
           <!-- Profile Photo: Compact, rounded-2xl, object-cover -->
           <div class="mb-5 flex justify-center lg:justify-start">
-            <div class="w-44 h-48 sm:w-48 sm:h-52 rounded-2xl overflow-hidden border border-base-border bg-base-card shadow-lg">
+            <div class="w-40 h-44 sm:w-48 sm:h-52 rounded-2xl overflow-hidden border border-base-border bg-base-card shadow-lg">
               <img
                 :src="profileImg"
                 alt="Profile photo"
@@ -197,6 +133,75 @@
             >
               <TextScramble text="Download Here" :duration="550" />
             </a>
+          </div>
+        </div>
+
+        <!-- Left Column (Bio & Contributions): Order 2 on mobile, Order 1 on desktop -->
+        <div class="flex-1 min-w-0 order-2 lg:order-1">
+          <!-- Description Paragraphs -->
+          <div class="font-mono text-xs sm:text-sm text-term-text leading-relaxed space-y-3.5 mb-8">
+            <p v-for="(line, i) in descriptionLines" :key="i">
+              <TextScramble
+                :text="line"
+                :duration="750"
+              />
+            </p>
+          </div>
+
+          <!-- My Contributions -->
+          <div
+            v-motion
+            :initial="{ opacity: 0 }"
+            :enter="{ opacity: 1, transition: { duration: 600, delay: 300 } }"
+          >
+            <p class="text-term-label font-mono text-sm mb-3">
+              <TextScramble text="My contributions" :duration="600" />
+            </p>
+
+            <!-- GitHub Contribution Graph -->
+            <div class="mb-4">
+              <p class="font-mono text-sm font-bold text-term-text mb-2.5">
+                <TextScramble text="GitHub" :duration="550" />
+              </p>
+              <div class="bg-base-card rounded-xl p-3 sm:p-4 border border-base-border overflow-x-auto shadow-md">
+                <div class="min-w-[620px]">
+                  <!-- Month Labels -->
+                  <div class="flex gap-[3px] mb-2 pl-1">
+                    <div v-for="month in monthLabels" :key="month.key" :style="{ width: month.width + 'px' }" class="font-mono text-[10px] text-term-muted">
+                      {{ month.name }}
+                    </div>
+                  </div>
+                  <!-- GitHub Contribution Grid -->
+                  <div class="contribution-grid">
+                    <div
+                      v-for="(week, wIndex) in githubContributions"
+                      :key="'gh-w-' + wIndex"
+                      class="contribution-column"
+                    >
+                      <div
+                        v-for="(day, dIndex) in week"
+                        :key="'gh-d-' + dIndex"
+                        class="contribution-cell"
+                        :class="getContributionClass(day.level)"
+                        :title="`${day.count} contributions on ${day.date}`"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center mt-3">
+                    <span class="font-mono text-xs text-term-muted">{{ totalGithubContribs }} contributions in the last year</span>
+                    <div class="flex items-center gap-1">
+                      <span class="font-mono text-xs text-term-muted">Less</span>
+                      <div class="contribution-cell level-NONE" />
+                      <div class="contribution-cell level-FIRST_QUARTILE" />
+                      <div class="contribution-cell level-SECOND_QUARTILE" />
+                      <div class="contribution-cell level-THIRD_QUARTILE" />
+                      <div class="contribution-cell level-FOURTH_QUARTILE" />
+                      <span class="font-mono text-xs text-term-muted">More</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

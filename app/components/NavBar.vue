@@ -4,7 +4,7 @@
     Frosted glass effect with gradient sheen and soft shadows
     Hover shows tooltip label below with glassmorphism
   -->
-  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 pointer-events-none">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 sm:pt-6 pointer-events-none">
     <div class="nav-pill pointer-events-auto">
       <div
         v-for="item in menuItems"
@@ -98,6 +98,13 @@ const isActive = (path: string): boolean => {
   border: 1px solid rgba(77, 201, 176, 0.5);
 }
 
+@media (max-width: 640px) {
+  .nav-pill {
+    padding: 4px 7px;
+    gap: 2px;
+  }
+}
+
 /* ── Nav Icon Button ── */
 .nav-icon {
   width: 43px;
@@ -108,6 +115,13 @@ const isActive = (path: string): boolean => {
   justify-content: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+}
+
+@media (max-width: 640px) {
+  .nav-icon {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 .nav-icon--active {

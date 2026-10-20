@@ -23,19 +23,19 @@
         </p>
       </div>
 
-      <!-- Bento Grid (4 Columns, auto-rows 260px) -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[260px]">
+      <!-- Bento Grid (4 Columns, responsive row height on mobile, 260px on desktop) -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto md:auto-rows-[260px]">
 
         <!-- CARD 1: NavEvent (2x1 Horizontal) -->
         <NuxtLink
           to="/projects/navevent"
-          class="bento-card col-span-1 md:col-span-2 md:row-span-1 group"
+          class="bento-card col-span-1 md:col-span-2 md:row-span-1 group min-h-[250px] md:min-h-0"
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 60 } }"
         >
           <!-- Mockup Image: Absolute, rotated -12deg, scale on hover -->
-          <div class="absolute -right-6 -top-6 w-[55%] sm:w-[50%] pointer-events-none z-0 overflow-visible">
+          <div class="absolute -right-4 sm:-right-6 -top-4 sm:-top-6 w-[58%] sm:w-[50%] pointer-events-none z-0 overflow-visible">
             <img
               src="/images/projects/naveven.png"
               alt="NavEvent Mockup"
@@ -74,7 +74,7 @@
         <!-- CARD 2: Wolio Learning (1x1 Square) -->
         <NuxtLink
           to="/projects/wolio"
-          class="bento-card col-span-1 md:col-span-1 md:row-span-1 group"
+          class="bento-card col-span-1 md:col-span-1 md:row-span-1 group min-h-[220px] md:min-h-0"
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 120 } }"
@@ -116,13 +116,13 @@
         <!-- CARD 3: Helpdesk Mobile (1x2 Vertical Rectangle on Right Side) -->
         <NuxtLink
           to="/projects/helpdesk"
-          class="bento-card col-span-1 md:col-span-1 md:row-span-2 group min-h-[300px] md:min-h-full"
+          class="bento-card col-span-1 md:col-span-1 md:row-span-2 group min-h-[300px] md:min-h-0 md:h-full"
           v-motion
           :initial="{ opacity: 0, x: 20 }"
           :visible-once="{ opacity: 1, x: 0, transition: { duration: 450, delay: 180 } }"
         >
           <!-- Mockup Image: Absolute, rotated -12deg, scale on hover -->
-          <div class="absolute -right-6 -top-4 w-[85%] pointer-events-none z-0">
+          <div class="absolute -right-3 sm:-right-6 -top-2 sm:-top-4 w-[68%] sm:w-[85%] pointer-events-none z-0">
             <img
               src="/images/projects/helpdesk.png"
               alt="Helpdesk Mockup"
@@ -160,13 +160,13 @@
         <!-- CARD 4: Arsipku Mobile (2x1 Horizontal) -->
         <NuxtLink
           to="/projects/arsipku"
-          class="bento-card col-span-1 md:col-span-2 md:row-span-1 group"
+          class="bento-card col-span-1 md:col-span-2 md:row-span-1 group min-h-[250px] md:min-h-0"
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 240 } }"
         >
           <!-- Mockup Image: Absolute, rotated -12deg, scale on hover -->
-          <div class="absolute -right-6 -top-6 w-[55%] sm:w-[50%] pointer-events-none z-0">
+          <div class="absolute -right-4 sm:-right-6 -top-4 sm:-top-6 w-[58%] sm:w-[50%] pointer-events-none z-0">
             <img
               src="/images/projects/arsipku.png"
               alt="Arsipku Mockup"
@@ -204,7 +204,7 @@
         <!-- CARD 5: Diskominfo Archive (1x1 Square) -->
         <NuxtLink
           to="/projects/archive"
-          class="bento-card col-span-1 md:col-span-1 md:row-span-1 group"
+          class="bento-card col-span-1 md:col-span-1 md:row-span-1 group min-h-[220px] md:min-h-0"
           v-motion
           :initial="{ opacity: 0, y: 20 }"
           :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 300 } }"
@@ -286,12 +286,13 @@ import TextScramble from './TextScramble.vue'
 /* Tech Badges */
 .tech-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: rgba(200, 214, 229, 0.9);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 4px;
+  white-space: nowrap;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -303,11 +304,11 @@ import TextScramble from './TextScramble.vue'
 /* Corner Arrow Button in bottom-right */
 .corner-arrow-btn {
   position: absolute;
-  bottom: 1.25rem;
-  right: 1.25rem;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 25;
-  width: 2rem;
-  height: 2rem;
+  width: 1.85rem;
+  height: 1.85rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(42, 63, 85, 0.8);
   background: rgba(10, 15, 26, 0.75);
@@ -318,6 +319,15 @@ import TextScramble from './TextScramble.vue'
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .corner-arrow-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+  }
 }
 
 .bento-card:hover .corner-arrow-btn {

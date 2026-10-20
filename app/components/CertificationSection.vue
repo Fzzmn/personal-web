@@ -180,8 +180,15 @@ onUnmounted(() => {
 /* ── Grid System ── */
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .cert-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
 }
 
 /* ── Minimal Card Base ── */
@@ -406,7 +413,15 @@ onUnmounted(() => {
   }
   
   .modal-container {
-    max-height: 95vh;
+    max-height: 92vh;
+    border-radius: 18px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
   }
   
   .modal-title {
@@ -414,11 +429,11 @@ onUnmounted(() => {
   }
   
   .modal-info {
-    padding: 24px;
+    padding: 20px 16px;
   }
   
   .modal-img {
-    padding: 20px;
+    padding: 16px;
   }
 }
 

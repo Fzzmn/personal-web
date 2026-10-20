@@ -76,7 +76,7 @@
             </div>
           </div>
 
-          <!-- Right: Role Details (Only 3 lines: Role, Company, Tech) -->
+          <!-- Right: Role Details (Only 3 lines: Role, Company, Tech, with mobile date header) -->
           <div class="timeline-right">
             <div 
               class="content-card"
@@ -84,16 +84,23 @@
               :initial="{ opacity: 0, x: 20 }"
               :visible-once="{ opacity: 1, x: 0, transition: { duration: 500, ease: 'easeOut', delay: 100 } }"
             >
+              <!-- Mobile only: Date & Location on top -->
+              <div class="sm:hidden mb-1.5 flex flex-wrap items-center gap-x-2 text-[11px] font-mono text-term-muted">
+                <span><TextScramble :text="exp.date" :duration="450" /></span>
+                <span class="text-term-border">•</span>
+                <span><TextScramble :text="exp.location" :duration="500" /></span>
+              </div>
+
               <!-- Line 1: Role / Posisi (Bold) -->
               <h3 
-                class="font-mono text-sm sm:text-base font-bold text-term-text transition-colors duration-300"
+                class="font-mono text-sm sm:text-base font-bold text-term-text transition-colors duration-300 leading-snug"
                 :class="{'text-term-label': activeItems.has(index)}"
               >
                 <TextScramble :text="exp.role" :duration="600" />
               </h3>
               
               <!-- Line 2: Nama Perusahaan / Instansi (Medium) -->
-              <p class="font-mono text-xs sm:text-sm text-term-text/80 mt-0.5">
+              <p class="font-mono text-xs sm:text-sm text-term-text/80 mt-1">
                 <TextScramble :text="exp.company" :duration="650" />
               </p>
               
@@ -265,21 +272,30 @@ onUnmounted(() => {
 }
 
 @media (max-width: 640px) {
+  .timeline-item {
+    padding-bottom: 20px;
+    align-items: flex-start;
+  }
+
   .timeline-left {
-    width: 120px;
-    padding-right: 12px;
+    display: none;
+  }
+
+  .timeline-center {
+    width: 16px;
+    margin-right: 12px;
   }
 
   .timeline-right {
     width: auto;
     flex: 1;
-    padding-left: 12px;
+    padding-left: 0;
   }
   
   .content-card {
-    padding: 8px 10px;
-    margin-top: -4px;
-    margin-left: -6px; 
+    padding: 0 4px 10px 4px;
+    margin-top: -2px;
+    margin-left: 0; 
   }
 }
 </style>

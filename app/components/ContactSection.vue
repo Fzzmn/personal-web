@@ -246,6 +246,18 @@ const socialLinks = [
   transition: all 0.28s ease;
 }
 
+@media (max-width: 640px) {
+  .social-card {
+    min-height: 90px;
+    padding: 10px 12px;
+  }
+
+  .social-icon-wrapper {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 .social-card:hover .social-icon-wrapper {
   border-color: #4dc9b0;
   color: #4dc9b0;
