@@ -158,50 +158,8 @@
               <TextScramble text="My contributions" :duration="600" />
             </p>
 
-            <!-- GitHub Contribution Graph -->
-            <div class="mb-4">
-              <p class="font-mono text-sm font-bold text-term-text mb-2.5">
-                <TextScramble text="GitHub" :duration="550" />
-              </p>
-              <div class="bg-base-card rounded-xl p-3 sm:p-4 border border-base-border overflow-x-auto shadow-md">
-                <div class="min-w-[620px]">
-                  <!-- Month Labels -->
-                  <div class="flex gap-[3px] mb-2 pl-1">
-                    <div v-for="month in monthLabels" :key="month.key" :style="{ width: month.width + 'px' }" class="font-mono text-[10px] text-term-muted">
-                      {{ month.name }}
-                    </div>
-                  </div>
-                  <!-- GitHub Contribution Grid -->
-                  <div class="contribution-grid">
-                    <div
-                      v-for="(week, wIndex) in githubContributions"
-                      :key="'gh-w-' + wIndex"
-                      class="contribution-column"
-                    >
-                      <div
-                        v-for="(day, dIndex) in week"
-                        :key="'gh-d-' + dIndex"
-                        class="contribution-cell"
-                        :class="getContributionClass(day.level)"
-                        :title="`${day.count} contributions on ${day.date}`"
-                      />
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center mt-3">
-                    <span class="font-mono text-xs text-term-muted">{{ totalGithubContribs }} contributions in the last year</span>
-                    <div class="flex items-center gap-1">
-                      <span class="font-mono text-xs text-term-muted">Less</span>
-                      <div class="contribution-cell level-NONE" />
-                      <div class="contribution-cell level-FIRST_QUARTILE" />
-                      <div class="contribution-cell level-SECOND_QUARTILE" />
-                      <div class="contribution-cell level-THIRD_QUARTILE" />
-                      <div class="contribution-cell level-FOURTH_QUARTILE" />
-                      <span class="font-mono text-xs text-term-muted">More</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- GitHub Component -->
+            <GitHubSection />
           </div>
         </div>
 
@@ -211,8 +169,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
 import TextScramble from './TextScramble.vue'
+import GitHubSection from './GitHubSection.vue'
 import profileImg from '~/assets/images/profil.png'
 
 const descriptionLines = [
@@ -223,79 +181,7 @@ const descriptionLines = [
   'A detail-oriented and adaptable individual with strong problem-solving skills, able to work effectively in collaborative environments and continuously eager to grow in software development.',
 ]
 
-// Generate placeholder contribution data
-const generatePlaceholder = (weeks: number) => {
-  const data: any[][] = []
-  for (let w = 0; w < weeks; w++) {
-    const week: any[] = []
-    for (let d = 0; d < 7; d++) {
-      week.push({ count: 0, level: 'NONE', date: '' })
-    }
-    data.push(week)
-  }
-  return data
-}
 
-const githubContributions = ref<any[][]>(generatePlaceholder(52))
-const monthLabels = ref<{ name: string; key: string; width: number }[]>([])
-
-onMounted(async () => {
-  // Fetch GitHub Contributions
-  try {
-    const res = await fetch('https://github-contributions-api.deno.dev/Fzzmn.json?flat=true')
-    const data = await res.json()
-    if (data && data.contributions) {
-      const weeks: any[][] = []
-      const months: { name: string; key: string; index: number }[] = []
-      
-      const raw = data.contributions
-      for (let i = 0; i < raw.length; i += 7) {
-        const chunk = raw.slice(i, i + 7)
-        const weekData = chunk.map((c: any) => ({
-          count: c.contributionCount,
-          level: c.contributionLevel,
-          date: c.date
-        }))
-        weeks.push(weekData)
-        
-        // Month Label Logic
-        const firstDay = weekData[0]
-        if (firstDay && firstDay.date) {
-          const date = new Date(firstDay.date)
-          const monthName = date.toLocaleString('default', { month: 'short' })
-          const lastMonth = months[months.length - 1]
-          if (months.length === 0 || (lastMonth && lastMonth.name !== monthName)) {
-            months.push({ name: monthName, key: firstDay.date, index: weeks.length - 1 })
-          }
-        }
-      }
-      
-      githubContributions.value = weeks.slice(-52)
-      
-      // Calculate widths for month labels (9px cell + 2px gap = 11px total per week)
-      monthLabels.value = months.slice(-12).map((m, i, arr) => {
-        const currentMonth = arr[i]
-        const nextMonth = arr[i + 1]
-        const nextIndex = nextMonth ? nextMonth.index : weeks.length
-        return {
-          name: currentMonth ? currentMonth.name : '',
-          key: currentMonth ? currentMonth.key : String(i),
-          width: (nextIndex - (currentMonth ? currentMonth.index : 0)) * 11
-        }
-      })
-    }
-  } catch (e) {
-    console.error('Failed to fetch github contributions', e)
-  }
-})
-
-const totalGithubContribs = computed(() =>
-  githubContributions.value.reduce((sum, week) => sum + week.reduce((s, d) => s + (d.count || 0), 0), 0)
-)
-
-const getContributionClass = (level: string): string => {
-  return `level-${level || 'NONE'}`
-}
 
 const techStacks = [
   { name: 'Flutter', svg: `<svg class="text-term-dot-green/80 group-hover:text-term-dot-green transition duration-300" viewBox="0 0 24 24" style="display: inline-block; stroke: currentcolor; fill: currentcolor; width: 24px; height: 24px;"><path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"/></svg>` },
@@ -324,43 +210,7 @@ const techStacks = [
 </script>
 
 <style scoped>
-/* Contribution Grid Styles */
-.contribution-grid {
-  display: flex;
-  gap: 2px;
-}
 
-.contribution-column {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.contribution-cell {
-  width: 9px;
-  height: 9px;
-  border-radius: 2px;
-}
-
-.level-NONE {
-  background-color: #161b22;
-}
-
-.level-FIRST_QUARTILE {
-  background-color: #0e4429;
-}
-
-.level-SECOND_QUARTILE {
-  background-color: #006d32;
-}
-
-.level-THIRD_QUARTILE {
-  background-color: #26a641;
-}
-
-.level-FOURTH_QUARTILE {
-  background-color: #ebedf0;
-}
 
 /* ── Glossy Tech Stack Tooltip ── */
 .tech-overlay-pill {
